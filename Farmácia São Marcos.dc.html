@@ -51,6 +51,10 @@
     .sec{padding-left:16px!important;padding-right:16px!important}
     .two{padding-left:16px!important;padding-right:16px!important;gap:28px!important}
     section{scroll-margin-top:70px}
+    .fsm-hero-pic{aspect-ratio:4/3!important;max-height:340px!important}
+    .fsm-foot-grid{grid-template-columns:1fr 1fr!important;gap:26px 20px!important;padding:44px 18px 24px!important}
+    .fsm-foot-logo{grid-column:1 / -1!important}
+    .fsm-foot-map{grid-column:1 / -1!important}
   }
   @media(max-width:400px){
     .sec{padding-left:12px!important;padding-right:12px!important}
@@ -196,7 +200,7 @@
       </div>
       <div style="position:relative;animation:fsmFadeIn 1s ease .2s both">
         <div style="position:absolute;inset:-18px;border-radius:36px;background:linear-gradient(135deg,rgba(241,134,57,.16),rgba(64,65,145,.14));animation:fsmFloat 7s ease-in-out infinite;pointer-events:none"></div>
-        <div style="position:relative;border-radius:28px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(64,65,145,.5);aspect-ratio:4/5">
+        <div class="fsm-hero-pic" style="position:relative;border-radius:28px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(64,65,145,.5);aspect-ratio:4/5">
           <image-slot id="fsm-hero" shape="rect" placeholder="Foto: farmacêutico, família ou medicamentos"></image-slot>
         </div>
         <div style="position:absolute;bottom:22px;left:-24px;display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:16px;background:#fff;box-shadow:0 20px 40px -16px rgba(64,65,145,.5);animation:fsmFloat 6s ease-in-out infinite .5s">
@@ -495,8 +499,8 @@
 
   <!-- ===== FOOTER ===== -->
   <footer style="background:#363775;color:#c9cae6">
-    <div style="max-width:1240px;margin:0 auto;padding:64px 28px 30px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px">
-      <div>
+    <div class="fsm-foot-grid" style="max-width:1240px;margin:0 auto;padding:64px 28px 30px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px">
+      <div class="fsm-foot-logo">
         <div style="background:#fff;display:inline-block;padding:14px 18px;border-radius:16px"><img src="https://i.imgur.com/vm6RYb8.png" alt="Farmácia São Marcos" style="height:52px;width:auto;display:block"/></div>
         <p style="margin:20px 0 0;max-width:280px;font:400 14px/1.6 'Poppins',sans-serif;color:#b6b7dd">Cuidando da saúde da sua família com confiança, tradição e atendimento humanizado.</p>
       </div>
@@ -517,7 +521,7 @@
           <a href="https://instagram.com/farmaciasaomarcos_oficial" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;color:#c9cae6" style-hover="color:#F18639"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F18639" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect width="20" height="20" x="2" y="2" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>@farmaciasaomarcos_oficial</a>
         </div>
       </div>
-      <div>
+      <div class="fsm-foot-map">
         <h4 style="margin:0 0 16px;font:700 15px/1 'Poppins',sans-serif;color:#fff">Onde estamos</h4>
         <div style="border-radius:16px;overflow:hidden;height:180px;box-shadow:0 16px 34px -18px rgba(0,0,0,.5)"><iframe title="Mapa Farmácia São Marcos" src="https://www.google.com/maps?q=Tv.%20Industrial,%2096,%20Olho%20d'%C3%81gua%20das%20Flores%20-%20AL,%2057442-000&output=embed" style="border:0;width:100%;height:100%;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
         <a href="https://maps.app.goo.gl/8XdN7g6kwfYPsTHu9" target="_blank" rel="noopener" style="margin-top:10px;display:inline-flex;align-items:center;gap:6px;font:600 13px/1.3 'Poppins',sans-serif;color:#c9cae6" style-hover="color:#F18639">Ver rota no Google Maps</a>
