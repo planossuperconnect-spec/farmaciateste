@@ -126,7 +126,7 @@
             </button>
             <div style="position:relative;height:100px;display:grid;place-items:center;background:linear-gradient(160deg,#eef0f9,#e3e5f4)">
               <sc-if value="{{ p.off }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:12px;left:12px;padding:5px 10px;border-radius:999px;background:#F18639;color:#fff;font:700 11px/1 'Poppins',sans-serif">-{{ p.off }}</span></sc-if>
-              <img src="{{ p.img }}" alt="{{ p.name }}" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#fff"/>
+              <img src="{{ p.img }}" alt="{{ p.name }}" loading="lazy" decoding="async" onError="{{ p.onImgErr }}" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#fff"/>
               <span style="display:none;width:58px;height:58px;border-radius:16px;place-items:center;background:#fff;color:#F18639;box-shadow:0 12px 26px -14px rgba(64,65,145,.5)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5 3.5 13.5a5 5 0 0 1 7-7l7 7a5 5 0 0 1-7 7z"/><path d="m8.5 8.5 7 7"/></svg></span>
             </div>
             <div style="padding:11px 12px 13px;display:flex;flex-direction:column;flex:1">
@@ -760,14 +760,15 @@ class Component extends DCLogic {
     const w1 = (a,b)=>{ if(a===b)return true; const la=a.length,lb=b.length; if(Math.abs(la-lb)>1)return false; let i=0,j=0,d=0; while(i<la&&j<lb){ if(a[i]===b[j]){i++;j++;} else { if(++d>1)return false; if(la>lb)i++; else if(lb>la)j++; else{i++;j++;} } } if(i<la)d+=la-i; if(j<lb)d+=lb-j; return d<=1; };
     const matchQ = p => { if(!qtok.length) return true; const b=blobOf(p); return qtok.every(t=>b.includes(t)); };
     const mny = n => this.money(n);
-    const deco = p => { const price = p.promo||p.pr; return {
-        id:p.id, name:p.n, brand:p.br||p.cat, cat:p.cat,
+    const deco = p => { p=p||{}; const price = Number(p.promo||p.pr)||0; const pid=p.id!=null?String(p.id):''; return {
+        id:pid, name:p.n||'Produto', brand:p.br||p.cat||'', cat:p.cat||'',
         priceNum:price, price:mny(price),
-        hasOld: !!p.promo, old: p.promo?mny(p.pr):'', off: p.promo?(Math.round((1-p.promo/p.pr)*100)+'%'):'',
+        hasOld: !!(p.promo&&p.pr), old: (p.promo&&p.pr)?mny(p.pr):'', off: (p.promo&&p.pr)?(Math.round((1-p.promo/p.pr)*100)+'%'):'',
+        onImgErr:(e)=>{ if(e&&e.target){ e.target.style.display='none'; var s=e.target.nextElementSibling; if(s) s.style.display='grid'; } },
         add:()=>this.add({id:p.id,name:p.n,priceNum:price,tag:p.cat}),
         isFav:favs.includes(p.id), notFav:!favs.includes(p.id), toggleFav:()=>this.toggleFav(p.id),
         use:useForOf(p), hasUse:!!useForOf(p),
-        img:'https://product-data.raiadrogasil.io/images/'+p.id+'.webp'
+        img: pid ? ('https://product-data.raiadrogasil.io/images/'+pid+'.webp') : ''
       };};
     let filtered = catalog.filter(p=>matchCat(p)&&matchQ(p));
     if(!filtered.length && q.length>=4){ filtered = catalog.filter(matchCat).filter(p=>{ const words=blobOf(p).split(/\s+/); return qtok.every(t=> t.length<4 ? words.some(w=>w.includes(t)) : words.some(w=> w.includes(t) || w1(w,t))); }); }
