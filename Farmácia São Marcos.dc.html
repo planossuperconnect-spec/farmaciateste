@@ -555,12 +555,16 @@
           <div style="margin-bottom:14px"><label style="display:block;font:600 12.5px/1 'Poppins',sans-serif;color:#404191;margin:0 0 6px">Nome completo *</label><input value="{{ form.nome }}" onInput="{{ onNome }}" placeholder="Seu nome" style="width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid rgba(64,65,145,.18);font:400 14px/1.3 'Poppins',sans-serif;color:#2b2c4d;background:#fff;outline:none" style-focus="border-color:#F18639"/></div>
           <div style="margin-bottom:14px"><label style="display:block;font:600 12.5px/1 'Poppins',sans-serif;color:#404191;margin:0 0 6px">Apelido</label><input value="{{ form.apelido }}" onInput="{{ onApelido }}" placeholder="Como prefere ser chamado (opcional)" style="width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid rgba(64,65,145,.18);font:400 14px/1.3 'Poppins',sans-serif;color:#2b2c4d;background:#fff;outline:none" style-focus="border-color:#F18639"/></div>
           <div style="margin-bottom:14px"><label style="display:block;font:600 12.5px/1 'Poppins',sans-serif;color:#404191;margin:0 0 6px">Telefone *</label><input value="{{ form.telefone }}" onInput="{{ onTelefone }}" placeholder="(00) 00000-0000" inputmode="tel" style="width:100%;padding:14px 16px;border-radius:12px;border:1.5px solid rgba(64,65,145,.18);font:400 15px/1.3 'Poppins',sans-serif;color:#2b2c4d;background:#fff;outline:none" style-focus="border-color:#F18639"/></div>
-          <div style="margin-bottom:14px"><label style="display:block;font:600 12.5px/1 'Poppins',sans-serif;color:#404191;margin:0 0 6px">Endereço *</label><textarea value="{{ form.endereco }}" onInput="{{ onEndereco }}" placeholder="Rua, número, bairro e ponto de referência" rows="3" style="width:100%;padding:14px 16px;border-radius:12px;border:1.5px solid rgba(64,65,145,.18);font:400 15px/1.4 'Poppins',sans-serif;color:#2b2c4d;background:#fff;outline:none;resize:vertical" style-focus="border-color:#F18639"></textarea></div>
-          <button onClick="{{ shareLoc }}" style="width:100%;min-height:52px;border:1.5px dashed rgba(64,65,145,.4);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:12px;background:rgba(64,65,145,.05);color:#404191;font:700 14px/1 'Poppins',sans-serif;transition:background .2s,border-color .2s" style-hover="background:rgba(64,65,145,.1);border-color:#404191">
+          <div style="margin-bottom:14px"><label style="display:block;font:600 12.5px/1 'Poppins',sans-serif;color:#404191;margin:0 0 8px">Tipo de entrega</label><div style="display:flex;gap:10px"><button onClick="{{ setEntregaE }}" style="{{ entregaStyle }}">🚴 Entrega</button><button onClick="{{ setEntregaR }}" style="{{ retirarStyle }}">🏪 Retirar na Farmácia</button></div></div>
+          <sc-if value="{{ isEntrega }}" hint-placeholder-val="{{ true }}"><div style="margin-bottom:14px"><label style="display:block;font:600 12.5px/1 'Poppins',sans-serif;color:#404191;margin:0 0 6px">Endereço *</label><textarea value="{{ form.endereco }}" onInput="{{ onEndereco }}" placeholder="Rua, número, bairro e ponto de referência" rows="3" style="width:100%;padding:14px 16px;border-radius:12px;border:1.5px solid rgba(64,65,145,.18);font:400 15px/1.4 'Poppins',sans-serif;color:#2b2c4d;background:#fff;outline:none;resize:vertical" style-focus="border-color:#F18639"></textarea></div></sc-if>
+          <sc-if value="{{ isEntrega }}" hint-placeholder-val="{{ true }}"><button onClick="{{ shareLoc }}" style="width:100%;min-height:52px;border:1.5px dashed rgba(64,65,145,.4);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px;border-radius:12px;background:rgba(64,65,145,.05);color:#404191;font:700 14px/1 'Poppins',sans-serif;transition:background .2s,border-color .2s" style-hover="background:rgba(64,65,145,.1);border-color:#404191">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             📍 Compartilhar minha localização
           </button>
-          <sc-if value="{{ hasLoc }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:9px;padding:12px 14px;border-radius:12px;background:rgba(37,211,102,.1);color:#1c8f46;font:600 13px/1.35 'Poppins',sans-serif"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><polyline points="20 6 9 17 4 12"/></svg>Localização capturada com sucesso.</div></sc-if>
+          <sc-if value="{{ hasLoc }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;display:flex;align-items:center;gap:9px;padding:12px 14px;border-radius:12px;background:rgba(37,211,102,.1);color:#1c8f46;font:600 13px/1.35 'Poppins',sans-serif"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><polyline points="20 6 9 17 4 12"/></svg>Localização capturada com sucesso.</div></sc-if></sc-if>
+          <div style="margin:16px 0 0"><label style="display:block;font:600 12.5px/1 'Poppins',sans-serif;color:#404191;margin:0 0 8px">Forma de pagamento</label><div style="display:flex;flex-wrap:wrap;gap:10px"><button onClick="{{ setPix }}" style="{{ pixStyle }}">PIX</button><button onClick="{{ setDin }}" style="{{ dinStyle }}">Dinheiro</button><button onClick="{{ setCartE }}" style="{{ cartEStyle }}">Cartão na entrega</button><button onClick="{{ setCartR }}" style="{{ cartRStyle }}">Cartão na retirada</button></div></div>
+          <sc-if value="{{ showTroco }}" hint-placeholder-val="{{ false }}"><div style="margin:14px 0 0"><label style="display:block;font:600 12.5px/1 'Poppins',sans-serif;color:#404191;margin:0 0 6px">Troco para quanto?</label><input value="{{ form.troco }}" onInput="{{ onTroco }}" placeholder="Ex.: R$ 50,00" inputmode="numeric" style="width:100%;padding:14px 16px;border-radius:12px;border:1.5px solid rgba(64,65,145,.18);font:400 15px/1.3 'Poppins',sans-serif;color:#2b2c4d;background:#fff;outline:none" style-focus="border-color:#F18639"/></div></sc-if>
+          <div style="margin:14px 0 0"><label style="display:block;font:600 12.5px/1 'Poppins',sans-serif;color:#404191;margin:0 0 6px">Observações</label><textarea value="{{ form.obs }}" onInput="{{ onObs }}" placeholder="Ex.: entregar no portão azul, interfone não funciona..." rows="2" style="width:100%;padding:14px 16px;border-radius:12px;border:1.5px solid rgba(64,65,145,.18);font:400 15px/1.4 'Poppins',sans-serif;color:#2b2c4d;background:#fff;outline:none;resize:vertical" style-focus="border-color:#F18639"></textarea></div>
           <sc-if value="{{ hasCepError }}" hint-placeholder-val="{{ false }}"><div style="margin:12px 0 0;padding:11px 14px;border-radius:10px;background:rgba(200,91,91,.1);color:#b0453f;font:600 12.5px/1.35 'Poppins',sans-serif">{{ cepError }}</div></sc-if>
         </div>
         <div style="flex:none;padding:16px 22px;border-top:1px solid rgba(64,65,145,.1);box-shadow:0 -10px 24px -18px rgba(64,65,145,.5)">
@@ -568,10 +572,29 @@
             <span style="font:600 14px/1 'Poppins',sans-serif;color:#6a6c86">Total</span>
             <span style="font:800 22px/1 'Poppins',sans-serif;color:#404191">{{ cartTotal }}</span>
           </div>
-          <button onClick="{{ submitOrder }}" style="width:100%;border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px;border-radius:14px;background:#25D366;color:#fff;font:700 16px/1 'Poppins',sans-serif;box-shadow:0 14px 30px -10px rgba(37,211,102,.6);transition:transform .25s,background .25s" style-hover="transform:translateY(-2px);color:#fff">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.06L2 22l5.06-1.33A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3 .79.8-2.92-.2-.31A8.2 8.2 0 1 1 12 20.2zm4.71-6.1c-.26-.13-1.53-.75-1.76-.84-.24-.09-.41-.13-.58.13-.17.26-.67.83-.82 1-.15.17-.3.19-.56.06-.26-.13-1.09-.4-2.08-1.28-.77-.68-1.29-1.53-1.44-1.79-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.46.13-.15.17-.26.26-.44.09-.17.04-.33-.02-.46-.07-.13-.58-1.4-.8-1.92-.21-.5-.42-.43-.58-.44h-.5c-.17 0-.44.06-.67.31-.23.26-.88.86-.88 2.1 0 1.24.9 2.43 1.03 2.6.13.17 1.78 2.72 4.32 3.81.6.26 1.07.42 1.44.53.6.19 1.16.16 1.59.1.49-.07 1.53-.62 1.74-1.23.22-.6.22-1.12.15-1.23-.06-.11-.24-.17-.5-.3z"/></svg>
-            Enviar Pedido
-          </button>
+          <button onClick="{{ goConfirm }}" style="width:100%;border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px;border-radius:14px;background:#F18639;color:#fff;font:700 16px/1 'Poppins',sans-serif;box-shadow:0 14px 30px -10px rgba(241,134,57,.6);transition:transform .25s,background .25s" style-hover="transform:translateY(-2px);background:#404191;color:#fff">Revisar pedido<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+        </div>
+      </sc-if>
+
+      <!-- STEP: CONFIRMAÇÃO -->
+      <sc-if value="{{ stepConfirm }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;overflow-y:auto;padding:18px 22px">
+          <button onClick="{{ backForm }}" style="border:none;cursor:pointer;background:transparent;color:#404191;font:600 13px/1 'Poppins',sans-serif;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px" style-hover="color:#F18639"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>Editar pedido</button>
+          <div style="font:700 18px/1.2 'Poppins',sans-serif;color:#404191;margin-bottom:6px">Confira seu pedido</div>
+          <p style="margin:0 0 16px;font:400 13px/1.5 'Poppins',sans-serif;color:#8a8ca4">Revise as informações antes de enviar pelo WhatsApp.</p>
+          <div style="border-radius:14px;background:#f6f7fc;padding:14px 16px;margin-bottom:14px">
+            <sc-for list="{{ cart }}" as="it" hint-placeholder-count="2"><div style="display:flex;justify-content:space-between;gap:12px;padding:7px 0"><span style="font:500 13px/1.35 'Poppins',sans-serif;color:#404191">{{ it.name }} <span style="color:#8a8ca4">× {{ it.qty }}</span></span><span style="font:700 13px/1 'Poppins',sans-serif;color:#404191;white-space:nowrap">{{ it.sub }}</span></div></sc-for>
+            <div style="display:flex;justify-content:space-between;margin-top:10px;padding-top:12px;border-top:1.5px solid rgba(64,65,145,.12)"><span style="font:700 15px/1 'Poppins',sans-serif;color:#404191">Total</span><span style="font:800 18px/1 'Poppins',sans-serif;color:#404191">{{ cartTotal }}</span></div>
+          </div>
+          <div style="border-radius:14px;box-shadow:inset 0 0 0 1px rgba(64,65,145,.12);padding:6px 16px 12px">
+            <div style="display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid rgba(64,65,145,.08)"><span style="font:500 13px/1.4 'Poppins',sans-serif;color:#8a8ca4">Cliente</span><span style="font:600 13px/1.4 'Poppins',sans-serif;color:#404191;text-align:right">{{ cf_nome }}</span></div><div style="display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid rgba(64,65,145,.08)"><span style="font:500 13px/1.4 'Poppins',sans-serif;color:#8a8ca4">Como prefere ser chamado</span><span style="font:600 13px/1.4 'Poppins',sans-serif;color:#404191;text-align:right">{{ cf_apelido }}</span></div><div style="display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid rgba(64,65,145,.08)"><span style="font:500 13px/1.4 'Poppins',sans-serif;color:#8a8ca4">Telefone</span><span style="font:600 13px/1.4 'Poppins',sans-serif;color:#404191;text-align:right">{{ cf_tel }}</span></div><div style="display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid rgba(64,65,145,.08)"><span style="font:500 13px/1.4 'Poppins',sans-serif;color:#8a8ca4">Tipo</span><span style="font:600 13px/1.4 'Poppins',sans-serif;color:#404191;text-align:right">{{ cf_entrega }}</span></div>
+            <sc-if value="{{ cf_isEnt }}" hint-placeholder-val="{{ true }}"><div style="display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid rgba(64,65,145,.08)"><span style="font:500 13px/1.4 'Poppins',sans-serif;color:#8a8ca4">Endereço</span><span style="font:600 13px/1.4 'Poppins',sans-serif;color:#404191;text-align:right">{{ cf_end }}</span></div></sc-if>
+            <div style="display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid rgba(64,65,145,.08)"><span style="font:500 13px/1.4 'Poppins',sans-serif;color:#8a8ca4">Pagamento</span><span style="font:600 13px/1.4 'Poppins',sans-serif;color:#404191;text-align:right">{{ cf_pag }}</span></div><div style="display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid rgba(64,65,145,.08)"><span style="font:500 13px/1.4 'Poppins',sans-serif;color:#8a8ca4">Observações</span><span style="font:600 13px/1.4 'Poppins',sans-serif;color:#404191;text-align:right">{{ cf_obs }}</span></div>
+          </div>
+          <sc-if value="{{ hasLoc }}" hint-placeholder-val="{{ false }}"><div style="margin-top:12px;display:flex;align-items:center;gap:9px;padding:12px 14px;border-radius:12px;background:rgba(37,211,102,.1);color:#1c8f46;font:600 13px/1.35 'Poppins',sans-serif"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><polyline points="20 6 9 17 4 12"/></svg>Localização incluída no pedido.</div></sc-if>
+        </div>
+        <div style="flex:none;padding:16px 22px;border-top:1px solid rgba(64,65,145,.1);box-shadow:0 -10px 24px -18px rgba(64,65,145,.5)">
+          <button onClick="{{ submitOrder }}" style="width:100%;border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px;border-radius:14px;background:#25D366;color:#fff;font:700 16px/1 'Poppins',sans-serif;box-shadow:0 14px 30px -10px rgba(37,211,102,.6);transition:transform .25s" style-hover="transform:translateY(-2px);color:#fff"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.06L2 22l5.06-1.33A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3 .79.8-2.92-.2-.31A8.2 8.2 0 1 1 12 20.2zm4.71-6.1c-.26-.13-1.53-.75-1.76-.84-.24-.09-.41-.13-.58.13-.17.26-.67.83-.82 1-.15.17-.3.19-.56.06-.26-.13-1.09-.4-2.08-1.28-.77-.68-1.29-1.53-1.44-1.79-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.46.13-.15.17-.26.26-.44.09-.17.04-.33-.02-.46-.07-.13-.58-1.4-.8-1.92-.21-.5-.42-.43-.58-.44h-.5c-.17 0-.44.06-.67.31-.23.26-.88.86-.88 2.1 0 1.24.9 2.43 1.03 2.6.13.17 1.78 2.72 4.32 3.81.6.26 1.07.42 1.44.53.6.19 1.16.16 1.59.1.49-.07 1.53-.62 1.74-1.23.22-.6.22-1.12.15-1.23-.06-.11-.24-.17-.5-.3z"/></svg>Enviar pedido pelo WhatsApp</button>
         </div>
       </sc-if>
 
@@ -582,7 +605,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280},&quot;whatsapp&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;558299269126&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;}}">
 class Component extends DCLogic {
-  state = { cart: [], open:false, step:'cart', toast:'', cepLoading:false, cepError:'', menuOpen:false, query:'', activeCat:'Todos', catalog:[], favs:[], showSug:false, limit:24, loc:null, form:{ nome:'',apelido:'',telefone:'',endereco:'' } };
+  state = { cart: [], open:false, step:'cart', toast:'', cepLoading:false, cepError:'', menuOpen:false, query:'', activeCat:'Todos', catalog:[], favs:[], showSug:false, limit:24, loc:null, form:{ nome:'',apelido:'',telefone:'',endereco:'',entrega:'Entrega',pagamento:'PIX',troco:'',obs:'' } };
   shareLoc(){ if(!navigator.geolocation){ this.setState({cepError:'Seu navegador não suporta localização. Informe o endereço no campo acima.'}); return; } navigator.geolocation.getCurrentPosition((pos)=>{ this.setState({loc:{lat:pos.coords.latitude,lng:pos.coords.longitude},cepError:''}); },()=>{ this.setState({cepError:'Não foi possível obter a localização. Você pode informar o endereço no campo acima.'}); },{enableHighAccuracy:true,timeout:10000}); }
   clearCart(){ if(window.confirm('Deseja limpar todo o carrinho?')){ this.setState({cart:[]}); this.save([]); } }
   componentDidMount(){
@@ -605,27 +628,35 @@ class Component extends DCLogic {
   setPag(v){ this.setState(s=>({form:{...s.form,pagamento:v}})); }
   onCepInput=(e)=>{ const v=e.target.value; this.setState(s=>({form:{...s.form,cep:v},cepError:''})); const d=(v||'').replace(/\D/g,''); if(d.length===8) this.lookupCep(d); };
   lookupCep(cep){ this.setState({cepLoading:true,cepError:''}); fetch('https://viacep.com.br/ws/'+cep+'/json/').then(r=>r.json()).then(d=>{ if(d && d.erro){ this.setState({cepLoading:false,cepError:'CEP não encontrado. Verifique e tente novamente.'}); return; } this.setState(s=>({cepLoading:false,form:{...s.form,rua:d.logradouro||s.form.rua,bairro:d.bairro||s.form.bairro,cidade:d.localidade||s.form.cidade,estado:d.uf||s.form.estado}})); }).catch(()=>this.setState({cepLoading:false,cepError:'Não foi possível buscar o CEP agora.'})); }
-  submitOrder(){
+  goConfirm(){
     const f=this.state.form;
     if(!this.state.cart.length) return;
-    if(!f.nome||!f.telefone||!f.endereco){ this.setState({cepError:'Preencha os campos obrigatórios: nome, telefone e endereço.'}); return; }
-    const prod=this.state.cart.map((it)=>'• '+it.name+' — '+it.qty+' un.  ('+this.money(it.priceNum*it.qty)+')').join('\n');
+    if(!f.nome||!f.telefone){ this.setState({cepError:'Preencha nome e telefone.'}); return; }
+    if(f.entrega==='Entrega' && !f.endereco){ this.setState({cepError:'Informe o endereço de entrega.'}); return; }
+    this.setState({step:'confirm',cepError:''});
+  }
+  submitOrder(){
+    const f=this.state.form;
+    const prod=this.state.cart.map((it)=>'• '+it.name+'\n   '+it.qty+' un. — '+this.money(it.priceNum*it.qty)).join('\n');
     const total=this.money(this.state.cart.reduce((a,b)=>a+b.priceNum*b.qty,0));
     const loc=this.state.loc;
-    const msg='Olá! Gostaria de fazer um pedido.\n\n'+
-      '👤 Nome:\n'+f.nome+'\n\n'+
-      '😊 Como prefere ser chamado:\n'+(f.apelido||'-')+'\n\n'+
-      '📞 Telefone:\n'+f.telefone+'\n\n'+
-      '🏠 Endereço:\n'+f.endereco+'\n\n'+
-      '📍 Localização:\n'+(loc?('https://maps.google.com/?q='+loc.lat+','+loc.lng):'(não informada)')+'\n\n'+
-      '🛒 Produtos:\n'+prod+'\n\n'+
-      'Total estimado:\n'+total+'\n\n'+
-      'Aguardo confirmação.\nObrigado!';
+    const isE=f.entrega==='Entrega';
+    let pag=f.pagamento; if(f.pagamento==='Dinheiro'&&f.troco) pag='Dinheiro (troco para '+f.troco+')';
+    const L='━━━━━━━━━━━━━━';
+    const msg='🟢 *NOVO PEDIDO*\n'+L+'\n\n'+
+      '👤 *Cliente*\nNome: '+f.nome+'\nComo prefere ser chamado: '+(f.apelido||'-')+'\nTelefone: '+f.telefone+'\n\n'+L+'\n\n'+
+      (isE?('📍 *ENTREGA*\nEndereço: '+f.endereco+'\nLocalização: '+(loc?('https://maps.google.com/?q='+loc.lat+','+loc.lng):'(não informada)')):'🏪 *RETIRADA NA FARMÁCIA*')+'\n\n'+L+'\n\n'+
+      '🛒 *PRODUTOS*\n'+prod+'\n\n'+L+'\n\n'+
+      '💰 *TOTAL*\n'+total+'\n\n'+L+'\n\n'+
+      '💳 *PAGAMENTO*\n'+pag+'\n\n'+L+'\n\n'+
+      '📝 *OBSERVAÇÕES*\n'+(f.obs||'-')+'\n\n'+L+'\n\n'+
+      '_Pedido enviado automaticamente pelo site da Farmácia São Marcos._';
     window.open('https://wa.me/'+this.phone()+'?text='+encodeURIComponent(msg),'_blank');
     setTimeout(()=>{ if(window.confirm('Pedido enviado! Deseja limpar o carrinho?')){ this.setState({cart:[],open:false,step:'cart'}); this.save([]); } },500);
   }
   renderVals() {
     const R = React.createElement;
+    const pillS = on => 'flex:1;min-width:calc(50% - 5px);cursor:pointer;border-radius:12px;padding:13px 10px;font:600 13px/1.2 Poppins,sans-serif;text-align:center;transition:all .18s;border:1.5px solid '+(on?'#F18639;background:rgba(241,134,57,.12);color:#F18639':'rgba(64,65,145,.18);background:#fff;color:#404191');
     const phone = this.phone();
     const wa = 'https://wa.me/' + phone + '?text=' + encodeURIComponent('Olá! Gostaria de receber atendimento da Farmácia São Marcos.');
     const ic = (paths, opts={}) => R('svg', {width:opts.w||26,height:opts.w||26,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor','strokeWidth':opts.sw||2,'strokeLinecap':'round','strokeLinejoin':'round',key:Math.random()}, paths.map((d,i)=>R('path',{d,key:i})));
@@ -729,6 +760,22 @@ class Component extends DCLogic {
       submitOrder: ()=>this.submitOrder(),
       onNome: this.setField('nome'), onApelido: this.setField('apelido'), onTelefone: this.setField('telefone'), onEndereco: this.setField('endereco'),
       shareLoc: ()=>this.shareLoc(), hasLoc: !!this.state.loc,
+      onObs: this.setField('obs'), onTroco: this.setField('troco'),
+      setEntregaE:()=>this.setState(st=>({form:{...st.form,entrega:'Entrega'}})), setEntregaR:()=>this.setState(st=>({form:{...st.form,entrega:'Retirar'}})),
+      setPix:()=>this.setState(st=>({form:{...st.form,pagamento:'PIX'}})), setDin:()=>this.setState(st=>({form:{...st.form,pagamento:'Dinheiro'}})), setCartE:()=>this.setState(st=>({form:{...st.form,pagamento:'Cartão na entrega'}})), setCartR:()=>this.setState(st=>({form:{...st.form,pagamento:'Cartão na retirada'}})),
+      entregaStyle:pillS(this.state.form.entrega!=='Retirar'), retirarStyle:pillS(this.state.form.entrega==='Retirar'),
+      pixStyle:pillS(this.state.form.pagamento==='PIX'), dinStyle:pillS(this.state.form.pagamento==='Dinheiro'), cartEStyle:pillS(this.state.form.pagamento==='Cartão na entrega'), cartRStyle:pillS(this.state.form.pagamento==='Cartão na retirada'),
+      isEntrega: this.state.form.entrega!=='Retirar', isRetirar: this.state.form.entrega==='Retirar',
+      entregaOn: this.state.form.entrega!=='Retirar', retirarOn: this.state.form.entrega==='Retirar',
+      showTroco: this.state.form.pagamento==='Dinheiro',
+      isPix:this.state.form.pagamento==='PIX', isDin:this.state.form.pagamento==='Dinheiro', isCartEnt:this.state.form.pagamento==='Cartão na entrega', isCartRet:this.state.form.pagamento==='Cartão na retirada',
+      goConfirm:()=>this.goConfirm(), backForm:()=>this.setState({step:'form'}),
+      stepConfirm: this.state.step==='confirm',
+      cf_nome:this.state.form.nome, cf_apelido:this.state.form.apelido||'-', cf_tel:this.state.form.telefone,
+      cf_entrega:this.state.form.entrega==='Retirar'?'Retirar na Farmácia':'Entrega', cf_end:this.state.form.entrega==='Retirar'?'':(this.state.form.endereco||'-'),
+      cf_isEnt:this.state.form.entrega!=='Retirar',
+      cf_pag:this.state.form.pagamento+((this.state.form.pagamento==='Dinheiro'&&this.state.form.troco)?(' (troco p/ '+this.state.form.troco+')'):''),
+      cf_obs:this.state.form.obs||'-',
       clearCart: ()=>this.clearCart(),
       setPix: ()=>this.setPag('PIX'), setDin: ()=>this.setPag('Dinheiro'), setCard: ()=>this.setPag('Cartão na entrega'),
       pixStyle: pill+(f.pagamento==='PIX'?on:off), dinStyle: pill+(f.pagamento==='Dinheiro'?on:off), cardStyle: pill+(f.pagamento==='Cartão na entrega'?on:off) };
