@@ -37,9 +37,14 @@
   }
   @media(max-width:600px){
     .fsm-cta-label{display:none!important}
-    .fsm-hero-grid h1{font-size:34px!important}
-    .fsm-hero-grid{padding-left:16px!important;padding-right:16px!important}
-    .stats{gap:18px!important}
+    .fsm-hero-grid h1{font-size:28px!important;line-height:1.15!important}
+    .fsm-hero-grid p{font-size:15px!important}
+    .fsm-hero-grid{padding:40px 16px 48px!important;gap:32px!important}
+    .fsm-hero-grid a{width:100%!important;justify-content:center!important;padding:14px 18px!important;font-size:15px!important}
+    .stats{gap:14px!important}
+    .stats>div{flex:1 1 40%!important;min-width:0!important}
+    .stats>div>div:first-child{font-size:22px!important}
+    .stats>div>div:last-child{font-size:12px!important}
     header>div{padding-left:16px!important;padding-right:16px!important;gap:12px!important}
     .fsm-logo{height:42px!important}
     .fsm-hcta{display:none!important}
@@ -174,16 +179,16 @@
         <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:rgba(64,65,145,.08);font:600 13px/1 'Poppins',sans-serif;letter-spacing:.02em;color:#404191">
           <span style="width:8px;height:8px;border-radius:50%;background:#F18639"></span>Sua farmácia de confiança
         </span>
-        <h1 style="margin:22px 0 0;font:800 clamp(38px,5vw,60px)/1.06 'Poppins',sans-serif;color:#404191;letter-spacing:-.02em;text-wrap:balance">Sua saúde merece cuidado <span style="color:#F18639">todos os dias.</span></h1>
+        <h1 style="margin:22px 0 0;font:800 clamp(28px,5vw,60px)/1.06 'Poppins',sans-serif;color:#404191;letter-spacing:-.02em;text-wrap:balance;overflow-wrap:break-word">Sua saúde merece cuidado <span style="color:#F18639">todos os dias.</span></h1>
         <p style="margin:22px 0 0;max-width:520px;font:400 18px/1.65 'Poppins',sans-serif;color:#5a5c7a;text-wrap:pretty">Medicamentos, perfumaria, genéricos, vitaminas e muito mais com atendimento rápido, preços especiais e a confiança que você merece.</p>
-        <div style="margin-top:34px;display:flex;flex-wrap:wrap;gap:14px">
+        <div class="hero-btns" style="margin-top:34px;display:flex;flex-wrap:wrap;gap:14px">
           <a href="{{ wa }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:999px;background:#F18639;color:#fff;font:700 16px/1 'Poppins',sans-serif;box-shadow:0 14px 30px -10px rgba(241,134,57,.6);transition:background .25s,transform .25s" style-hover="background:#404191;transform:translateY(-2px);color:#fff">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.06L2 22l5.06-1.33A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3 .79.8-2.92-.2-.31A8.2 8.2 0 1 1 12 20.2zm4.71-6.1c-.26-.13-1.53-.75-1.76-.84-.24-.09-.41-.13-.58.13-.17.26-.67.83-.82 1-.15.17-.3.19-.56.06-.26-.13-1.09-.4-2.08-1.28-.77-.68-1.29-1.53-1.44-1.79-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.46.13-.15.17-.26.26-.44.09-.17.04-.33-.02-.46-.07-.13-.58-1.4-.8-1.92-.21-.5-.42-.43-.58-.44h-.5c-.17 0-.44.06-.67.31-.23.26-.88.86-.88 2.1 0 1.24.9 2.43 1.03 2.6.13.17 1.78 2.72 4.32 3.81.6.26 1.07.42 1.44.53.6.19 1.16.16 1.59.1.49-.07 1.53-.62 1.74-1.23.22-.6.22-1.12.15-1.23-.06-.11-.24-.17-.5-.3z"/></svg>
             Comprar pelo WhatsApp
           </a>
           <a href="#promocoes" style="display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:999px;background:#fff;color:#404191;font:700 16px/1 'Poppins',sans-serif;box-shadow:inset 0 0 0 2px #404191;transition:background .25s,color .25s,transform .25s" style-hover="background:#404191;color:#fff;transform:translateY(-2px)">Ver Promoções</a>
         </div>
-        <div style="margin-top:38px;display:flex;flex-wrap:wrap;gap:28px">
+        <div class="stats" style="margin-top:38px;display:flex;flex-wrap:wrap;gap:28px">
           <div><div style="font:800 26px/1 'Poppins',sans-serif;color:#F18639">+280 mil</div><div style="margin-top:4px;font:500 13px/1 'Poppins',sans-serif;color:#7a7c96">clientes atendidos por toda a região</div></div>
           <div><div style="font:800 26px/1 'Poppins',sans-serif;color:#F18639">30 min</div><div style="margin-top:4px;font:500 13px/1 'Poppins',sans-serif;color:#7a7c96">entrega expressa</div></div>
           <div><div style="font:800 26px/1 'Poppins',sans-serif;color:#F18639">100%</div><div style="margin-top:4px;font:500 13px/1 'Poppins',sans-serif;color:#7a7c96">produtos originais</div></div>
@@ -198,6 +203,24 @@
           <span style="width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(64,65,145,.1);color:#404191"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
           <div><div style="font:700 14px/1.1 'Poppins',sans-serif;color:#404191">Atendimento</div><div style="font:500 12px/1.2 'Poppins',sans-serif;color:#7a7c96">humanizado e rápido</div></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BANNER ENTREGA ===== -->
+  <section style="max-width:1240px;margin:64px auto 0;padding:0 28px">
+    <div style="position:relative;overflow:hidden;border-radius:28px;background:linear-gradient(120deg,#404191 0%,#4a4bad 55%,#5658c4 100%);box-shadow:0 30px 70px -34px rgba(64,65,145,.7);display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+      <div style="flex:1;min-width:270px;padding:clamp(30px,4vw,52px);order:1">
+        <span style="display:inline-flex;align-items:center;gap:8px;padding:7px 15px;border-radius:999px;background:rgba(241,134,57,.22);box-shadow:inset 0 0 0 1px rgba(241,134,57,.5);font:700 12px/1 'Poppins',sans-serif;letter-spacing:.05em;color:#ffd7bd">🛵 Delivery São Marcos</span>
+        <h2 style="margin:16px 0 10px;font:800 clamp(26px,3.6vw,40px)/1.12 'Poppins',sans-serif;color:#fff;letter-spacing:-.02em;text-wrap:balance">Entrega de Domingo a Domingo <span style="color:#F18639">GRÁTIS!</span></h2>
+        <p style="margin:0 0 24px;font:400 16px/1.6 'Poppins',sans-serif;color:#d7d8f0">Para compras a partir de <strong style="color:#fff">R$ 10,00</strong>.</p>
+        <a href="{{ wa }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;padding:15px 28px;border-radius:999px;background:#F18639;color:#fff;font:700 15px/1 'Poppins',sans-serif;box-shadow:0 14px 30px -10px rgba(241,134,57,.6);transition:transform .25s,background .25s" style-hover="transform:translateY(-2px);background:#fff;color:#404191">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.06L2 22l5.06-1.33A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3 .79.8-2.92-.2-.31A8.2 8.2 0 1 1 12 20.2zm4.71-6.1c-.26-.13-1.53-.75-1.76-.84-.24-.09-.41-.13-.58.13-.17.26-.67.83-.82 1-.15.17-.3.19-.56.06-.26-.13-1.09-.4-2.08-1.28-.77-.68-1.29-1.53-1.44-1.79-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.46.13-.15.17-.26.26-.44.09-.17.04-.33-.02-.46-.07-.13-.58-1.4-.8-1.92-.21-.5-.42-.43-.58-.44h-.5c-.17 0-.44.06-.67.31-.23.26-.88.86-.88 2.1 0 1.24.9 2.43 1.03 2.6.13.17 1.78 2.72 4.32 3.81.6.26 1.07.42 1.44.53.6.19 1.16.16 1.59.1.49-.07 1.53-.62 1.74-1.23.22-.6.22-1.12.15-1.23-.06-.11-.24-.17-.5-.3z"/></svg>
+          Pedir pelo WhatsApp
+        </a>
+      </div>
+      <div style="flex:1;min-width:260px;align-self:flex-end;display:flex;justify-content:center;order:2">
+        <img src="assets/moto-entrega.png" alt="Entregador da Farmácia São Marcos" loading="lazy" decoding="async" style="display:block;width:100%;max-width:400px;height:auto;filter:drop-shadow(0 24px 30px rgba(0,0,0,.3))"/>
       </div>
     </div>
   </section>
@@ -572,6 +595,12 @@
               <span style="font:600 15px/1 'Poppins',sans-serif;color:#6a6c86">Total do pedido</span>
               <span style="font:800 26px/1 'Poppins',sans-serif;color:#404191">{{ cartTotal }}</span>
             </div>
+            <sc-if value="{{ belowMin }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:flex-start;gap:9px;margin-bottom:12px;padding:11px 13px;border-radius:12px;background:rgba(241,134,57,.12);box-shadow:inset 0 0 0 1px rgba(241,134,57,.35)">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#c96a24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                <span style="font:600 12.5px/1.4 'Poppins',sans-serif;color:#c96a24">Para <strong>entrega grátis</strong>, o pedido mínimo é de <strong>R$ 10,00</strong>. Adicione mais itens para aproveitar.</span>
+              </div>
+            </sc-if>
             <button onClick="{{ goForm }}" style="width:100%;border:none;cursor:pointer;padding:16px;border-radius:14px;background:#F18639;color:#fff;font:700 16px/1 'Poppins',sans-serif;box-shadow:0 14px 30px -10px rgba(241,134,57,.6);transition:background .25s,transform .25s" style-hover="background:#404191;transform:translateY(-2px);color:#fff">Finalizar Pedido</button>
             <button onClick="{{ clearCart }}" style="width:100%;margin-top:10px;border:none;cursor:pointer;padding:12px;border-radius:12px;background:transparent;color:#c85b5b;font:600 13.5px/1 'Poppins',sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:background .2s" style-hover="background:rgba(200,91,91,.08)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>Limpar carrinho</button>
           </div>
@@ -835,6 +864,7 @@ class Component extends DCLogic {
       entregaOn: this.state.form.entrega!=='Retirar', retirarOn: this.state.form.entrega==='Retirar',
       showTroco: this.state.form.pagamento==='Dinheiro',
       isPix:this.state.form.pagamento==='PIX', isDin:this.state.form.pagamento==='Dinheiro', isCartEnt:this.state.form.pagamento==='Cartão na entrega', isCartRet:this.state.form.pagamento==='Cartão na retirada',
+      belowMin: this.state.cart.reduce((a,b)=>a+b.priceNum*b.qty,0) < 10 && this.state.cart.length>0,
       goConfirm:()=>this.goConfirm(), backForm:()=>this.setState({step:'form'}),
       stepConfirm: this.state.step==='confirm',
       cf_nome:this.state.form.nome, cf_apelido:this.state.form.apelido||'-', cf_tel:this.state.form.telefone,
