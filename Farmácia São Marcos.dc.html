@@ -137,15 +137,17 @@
     <sc-if value="{{ hasResults }}" hint-placeholder-val="{{ true }}">
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(150px,100%),1fr));gap:12px">
         <sc-for list="{{ catalogoView }}" as="p" hint-placeholder-count="8">
-          <div style="position:relative;display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:#fff;box-shadow:0 16px 40px -26px rgba(64,65,145,.4);border:1px solid rgba(64,65,145,.07);transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-6px);box-shadow:0 28px 56px -26px rgba(64,65,145,.5)">
+          <div style="position:relative;display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:#fff;box-shadow:0 16px 40px -26px rgba(64,65,145,.4);border:1px solid rgba(64,65,145,.07);transition:transform .3s,box-shadow .3s;min-height:270px" style-hover="transform:translateY(-6px);box-shadow:0 28px 56px -26px rgba(64,65,145,.5)">
             <button onClick="{{ p.toggleFav }}" aria-label="Favoritar" style="position:absolute;top:12px;right:12px;z-index:3;width:36px;height:36px;border:none;cursor:pointer;border-radius:50%;background:rgba(255,255,255,.94);box-shadow:0 6px 16px -6px rgba(64,65,145,.5);display:grid;place-items:center">
               <sc-if value="{{ p.isFav }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="#F18639" stroke="#F18639" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></sc-if>
               <sc-if value="{{ p.notFav }}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a9abcf" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></sc-if>
             </button>
-            <div style="position:relative;height:104px;display:grid;place-items:center;background:linear-gradient(160deg,#eef0f9,#e3e5f4)">
+            <div style="position:relative;padding:12px 12px 0;display:flex;justify-content:center">
               <sc-if value="{{ p.off }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:12px;left:12px;z-index:2;padding:5px 10px;border-radius:999px;background:#F18639;color:#fff;font:700 11px/1 'Poppins',sans-serif">-{{ p.off }}</span></sc-if>
-              <img src="{{ p.img }}" alt="{{ p.name }}" loading="lazy" decoding="async" onError="{{ p.onImgErr }}" style="width:100%;height:100%;object-fit:contain;padding:8px;background:#fff"/>
-              <span style="display:none;width:56px;height:56px;border-radius:16px;place-items:center;background:#fff;color:#F18639;box-shadow:0 12px 26px -14px rgba(64,65,145,.5)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5 3.5 13.5a5 5 0 0 1 7-7l7 7a5 5 0 0 1-7 7z"/><path d="m8.5 8.5 7 7"/></svg></span>
+              <div style="width:96px;height:96px;flex:none;border-radius:16px;background:#eef0f9;display:flex;align-items:center;justify-content:center;overflow:hidden">
+                <img src="{{ p.img }}" alt="{{ p.name }}" loading="lazy" decoding="async" onError="{{ p.onImgErr }}" style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;padding:8px;display:block"/>
+                <span style="display:none;color:#F18639"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5 3.5 13.5a5 5 0 0 1 7-7l7 7a5 5 0 0 1-7 7z"/><path d="m8.5 8.5 7 7"/></svg></span>
+              </div>
             </div>
             <div style="padding:12px 12px 13px;display:flex;flex-direction:column;flex:1">
               <div style="font:400 9px/1.3 'Poppins',sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#a2a4bd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.brand }} · {{ p.cat }}</div>
@@ -571,7 +573,10 @@
           <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ false }}">
             <sc-for list="{{ cart }}" as="it" hint-placeholder-count="2">
               <div style="display:flex;gap:14px;padding:16px 0;border-bottom:1px solid rgba(64,65,145,.08)">
-                <span style="flex:none;width:56px;height:56px;border-radius:12px;display:grid;place-items:center;background:rgba(241,134,57,.12);color:#F18639"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5 3.5 13.5a5 5 0 0 1 7-7l7 7a5 5 0 0 1-7 7z"/><path d="m8.5 8.5 7 7"/></svg></span>
+                <span style="flex:none;width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#eef0f9;color:#F18639">
+                  <sc-if value="{{ it.hasImg }}" hint-placeholder-val="{{ false }}"><img src="{{ it.img }}" alt="{{ it.name }}" loading="lazy" decoding="async" onError="{{ it.onImgErr }}" style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;padding:6px;display:block"/></sc-if>
+                  <span style="{{ it.iconStyle }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5 3.5 13.5a5 5 0 0 1 7-7l7 7a5 5 0 0 1-7 7z"/><path d="m8.5 8.5 7 7"/></svg></span>
+                </span>
                 <div style="flex:1;min-width:0">
                   <div style="font:600 14px/1.35 'Poppins',sans-serif;color:#404191">{{ it.name }}</div>
                   <div style="margin-top:2px;font:500 13px/1 'Poppins',sans-serif;color:#8a8ca4">{{ it.unit }} /un.</div>
@@ -675,6 +680,7 @@ class Component extends DCLogic {
     try{ const s=localStorage.getItem('fsm_cart'); if(s) this.setState({cart:JSON.parse(s)||[]}); }catch(e){}
     try{ const fv=localStorage.getItem('fsm_favs'); if(fv) this.setState({favs:JSON.parse(fv)||[]}); }catch(e){}
     if(window.FSM_PRODUTOS){ this.setState({catalog:window.FSM_PRODUTOS}); } else { fetch('data/produtos.json').then(r=>r.json()).then(d=>this.setState({catalog:Array.isArray(d)?d:[]})).catch(()=>{}); }
+    try{ const fd=localStorage.getItem('fsm_form'); if(fd){ const saved=JSON.parse(fd)||{}; this.setState(s=>({form:{...s.form,...saved}})); } }catch(e){}
   }
   toggleFav(id){ this.setState(s=>{ const favs=s.favs.includes(id)?s.favs.filter(x=>x!==id):[...s.favs,id]; try{localStorage.setItem('fsm_favs',JSON.stringify(favs));}catch(e){} return {favs}; }); }
   onSearchInput=(e)=>{ this.setState({query:e.target.value, showSug:true, limit:24}); };
@@ -682,7 +688,7 @@ class Component extends DCLogic {
   money(n){ return 'R$ ' + (n||0).toFixed(2).replace('.',','); }
   phone(){ return this.props.whatsapp || '558299269126'; }
   add(p){
-    this.setState(s=>{ const cart=s.cart.map(x=>({...x})); const i=cart.findIndex(x=>x.id===p.id); if(i>=0) cart[i].qty+=1; else cart.push({id:p.id,name:p.name,priceNum:p.priceNum,tag:p.tag,qty:1}); this.save(cart); return {cart, toast:(p.name||'Produto')+' foi adicionado ao carrinho!'}; });
+    this.setState(s=>{ const cart=s.cart.map(x=>({...x})); const i=cart.findIndex(x=>x.id===p.id); if(i>=0) cart[i].qty+=1; else cart.push({id:p.id,name:p.name,priceNum:p.priceNum,tag:p.tag,qty:1,img:p.img||''}); this.save(cart); return {cart, toast:(p.name||'Produto')+' foi adicionado ao carrinho!'}; });
     clearTimeout(this._t); this._t=setTimeout(()=>this.setState({toast:''}),2600);
   }
   changeQty(id,d){ this.setState(s=>{ const cart=s.cart.map(x=>x.id===id?{...x,qty:x.qty+d}:x).filter(x=>x.qty>0); this.save(cart); return {cart}; }); }
@@ -700,6 +706,7 @@ class Component extends DCLogic {
   }
   submitOrder(){
     const f=this.state.form;
+    try{ localStorage.setItem('fsm_form', JSON.stringify({nome:f.nome,apelido:f.apelido,telefone:f.telefone,endereco:f.endereco,entrega:f.entrega,pagamento:f.pagamento})); }catch(e){}
     const prod=this.state.cart.map((it)=>'• '+it.name+'\n   '+it.qty+' un. — '+this.money(it.priceNum*it.qty)).join('\n');
     const total=this.money(this.state.cart.reduce((a,b)=>a+b.priceNum*b.qty,0));
     const loc=this.state.loc;
@@ -765,7 +772,7 @@ class Component extends DCLogic {
       {name:'Carlos Eduardo Lima', text:'A equipe é muito atenciosa e me ajudou a encontrar o genérico certo. Farmácia de confiança!', slot:'dep2', stars},
       {name:'Juliana Martins', text:'Adoro as promoções e a variedade de produtos. Recomendo a São Marcos para toda a família.', slot:'dep3', stars},
     ];
-    const cart = this.state.cart.map(it => ({...it, unit:this.money(it.priceNum), sub:this.money(it.priceNum*it.qty), inc:()=>this.changeQty(it.id,1), dec:()=>this.changeQty(it.id,-1), remove:()=>this.removeItem(it.id)}));
+    const cart = this.state.cart.map(it => ({...it, hasImg:!!it.img, iconStyle:(it.img?'display:none':'display:grid'), onImgErr:(e)=>{ if(e&&e.target){ e.target.style.display='none'; var s=e.target.nextElementSibling; if(s) s.style.display='grid'; } }, unit:this.money(it.priceNum), sub:this.money(it.priceNum*it.qty), inc:()=>this.changeQty(it.id,1), dec:()=>this.changeQty(it.id,-1), remove:()=>this.removeItem(it.id)}));
     const cartCount = this.state.cart.reduce((a,b)=>a+b.qty,0);
     const cartTotal = this.money(this.state.cart.reduce((a,b)=>a+b.priceNum*b.qty,0));
     const f = this.state.form;
@@ -811,15 +818,38 @@ class Component extends DCLogic {
     const w1 = (a,b)=>{ if(a===b)return true; const la=a.length,lb=b.length; if(Math.abs(la-lb)>1)return false; let i=0,j=0,d=0; while(i<la&&j<lb){ if(a[i]===b[j]){i++;j++;} else { if(++d>1)return false; if(la>lb)i++; else if(lb>la)j++; else{i++;j++;} } } if(i<la)d+=la-i; if(j<lb)d+=lb-j; return d<=1; };
     const matchQ = p => { if(!qtok.length) return true; const b=blobOf(p); return qtok.every(t=>b.includes(t)); };
     const mny = n => this.money(n);
+    // Mapa de imagens por nome — para adicionar novas, basta incluir {termo: url} aqui.
+    const IMG_MAP = [
+      { kw:'inpruv', url:'https://i.imgur.com/N8SkOPC.jpeg' },
+      { kw:'lactulona', url:'https://i.imgur.com/1TA2Uy1.png' },
+      { kw:'neutrogena', url:'https://i.imgur.com/d87dKjP.jpeg' },
+      { kw:'clearblue', url:'https://i.imgur.com/DMGlooL.jpeg' },
+    ];
+    const imgNorm = s => (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    const imgFor = p => { const n=imgNorm(p.n); const hit=IMG_MAP.find(m=>n.includes(m.kw)); if(hit) return hit.url; return p.id!=null ? ('https://product-data.raiadrogasil.io/images/'+p.id+'.webp') : ''; };
+    const KEEP=/(\d+\s?(mg|mcg|ml|g|ui|%)|comprimid\w*|caps\w*|c[aá]psul\w*|gotas|creme|pomada|xarope|spray|sache\w*|amp\w*|susp\w*|solu\w*|adesivo|drage\w*|fr\b|cpr\b|cx\b)/gi;
+    const prettyName = raw => { let s=(raw||'').toString(); const low=s.toLowerCase();
+      // nome base = até antes do primeiro token muito técnico/numérico longo
+      let base=s.split(/\s{2,}|,| C\/| CX| FR| BL| PCT/i)[0].trim();
+      const units=[]; let m; KEEP.lastIndex=0; while((m=KEEP.exec(low))){ const t=m[0].replace(/\s+/g,''); if(!units.some(u=>u.toLowerCase()===t.toLowerCase())) units.push(m[0].trim()); }
+      let words=base.split(/\s+/).filter(Boolean);
+      if(words.length>4) words=words.slice(0,4);
+      let name=words.join(' ');
+      const nl=name.toLowerCase();
+      const extra=units.filter(u=>!nl.includes(u.toLowerCase().replace(/\s+/g,''))&&!nl.includes(u.toLowerCase())).slice(0,1);
+      let full=(name+' '+extra.join(' ')).replace(/\s{2,}/g,' ').trim();
+      full=full.toLowerCase().replace(/(^|\s)([a-zà-ú])/g,(x,a,b)=>a+b.toUpperCase());
+      full=full.replace(/\b(Mg|Mcg|Ml|Ui)\b/g,x=>x.toLowerCase());
+      return full||raw; };
     const deco = p => { p=p||{}; const price = Number(p.promo||p.pr)||0; const pid=p.id!=null?String(p.id):''; return {
-        id:pid, name:p.n||'Produto', brand:p.br||p.cat||'', cat:p.cat||'',
+        id:pid, name:prettyName(p.n)||'Produto', brand:p.br||p.cat||'', cat:p.cat||'',
         priceNum:price, price:mny(price),
         hasOld: !!(p.promo&&p.pr), old: (p.promo&&p.pr)?mny(p.pr):'', off: (p.promo&&p.pr)?(Math.round((1-p.promo/p.pr)*100)+'%'):'',
         onImgErr:(e)=>{ if(e&&e.target){ e.target.style.display='none'; var s=e.target.nextElementSibling; if(s) s.style.display='grid'; } },
-        add:()=>this.add({id:p.id,name:p.n,priceNum:price,tag:p.cat}),
+        add:()=>this.add({id:p.id,name:prettyName(p.n),priceNum:price,tag:p.cat,img:imgFor(p)}),
         isFav:favs.includes(p.id), notFav:!favs.includes(p.id), toggleFav:()=>this.toggleFav(p.id),
         use:useForOf(p), hasUse:!!useForOf(p),
-        img: pid ? ('https://product-data.raiadrogasil.io/images/'+pid+'.webp') : ''
+        img: imgFor(p)
       };};
     let filtered = catalog.filter(p=>matchCat(p)&&matchQ(p));
     if(!filtered.length && q.length>=4){ filtered = catalog.filter(matchCat).filter(p=>{ const words=blobOf(p).split(/\s+/); return qtok.every(t=> t.length<4 ? words.some(w=>w.includes(t)) : words.some(w=> w.includes(t) || w1(w,t))); }); }
