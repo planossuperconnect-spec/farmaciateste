@@ -66,36 +66,29 @@
 <div style="overflow-x:hidden">
 
   <!-- ===== HEADER ===== -->
-  <header style="position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);box-shadow:0 4px 24px -12px rgba(64,65,145,.35);border-bottom:1px solid rgba(64,65,145,.08)">
-    <div style="max-width:1240px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;gap:28px">
-      <a href="#inicio" style="flex:none;display:block"><img src="https://i.imgur.com/vm6RYb8.png" alt="Farmácia São Marcos" class="fsm-logo" style="height:56px;width:auto;display:block"/></a>
-      <nav class="fsm-nav" style="margin-left:auto;display:flex;align-items:center;gap:28px">
-        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="7">
-          <a href="{{ n.href }}" style="font:600 15px/1 'Poppins',sans-serif;color:#404191;padding:6px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s" style-hover="color:#F18639;border-color:#F18639">{{ n.label }}</a>
-        </sc-for>
-      </nav>
-      <button onClick="{{ openCart }}" aria-label="Carrinho" style="position:relative;flex:none;width:50px;height:50px;border-radius:14px;border:none;cursor:pointer;background:rgba(64,65,145,.08);color:#404191;display:grid;place-items:center;transition:background .25s,transform .25s" style-hover="background:rgba(64,65,145,.16);transform:translateY(-1px)">
-        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        <sc-if value="{{ cartCount }}" hint-placeholder-val="{{ false }}">
-          <span style="position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:#F18639;color:#fff;font:700 12px/22px 'Poppins',sans-serif;text-align:center;box-shadow:0 4px 10px -3px rgba(241,134,57,.8);animation:fsmBadge .3s ease">{{ cartCount }}</span>
-        </sc-if>
-      </button>
-      <button onClick="{{ toggleMenu }}" aria-label="Menu" class="fsm-burger" style="flex:none;width:50px;height:50px;border-radius:14px;border:none;cursor:pointer;background:rgba(64,65,145,.08);color:#404191;place-items:center;transition:background .25s" style-hover="background:rgba(64,65,145,.16)">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
-      </button>
-      <a href="{{ wa }}" target="_blank" rel="noopener" class="fsm-hcta" style="flex:none;display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:999px;background:#F18639;color:#fff;font:700 15px/1 'Poppins',sans-serif;box-shadow:0 10px 24px -8px rgba(241,134,57,.6);transition:background .25s,transform .25s" style-hover="background:#404191;transform:translateY(-2px);color:#fff">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.06L2 22l5.06-1.33A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3 .79.8-2.92-.2-.31A8.2 8.2 0 1 1 12 20.2zm4.71-6.1c-.26-.13-1.53-.75-1.76-.84-.24-.09-.41-.13-.58.13-.17.26-.67.83-.82 1-.15.17-.3.19-.56.06-.26-.13-1.09-.4-2.08-1.28-.77-.68-1.29-1.53-1.44-1.79-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.46.13-.15.17-.26.26-.44.09-.17.04-.33-.02-.46-.07-.13-.58-1.4-.8-1.92-.21-.5-.42-.43-.58-.44h-.5c-.17 0-.44.06-.67.31-.23.26-.88.86-.88 2.1 0 1.24.9 2.43 1.03 2.6.13.17 1.78 2.72 4.32 3.81.6.26 1.07.42 1.44.53.6.19 1.16.16 1.59.1.49-.07 1.53-.62 1.74-1.23.22-.6.22-1.12.15-1.23-.06-.11-.24-.17-.5-.3z"/></svg>
-        <span class="fsm-cta-label">Fale no WhatsApp</span>
-      </a>
-    </div>
-    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
-      <div style="border-top:1px solid rgba(64,65,145,.1);background:#fff;padding:10px 20px 16px;display:flex;flex-direction:column;gap:2px">
-        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="7">
-          <a href="{{ n.href }}" onClick="{{ closeMenu }}" style="padding:12px 10px;border-radius:10px;font:600 15px/1 'Poppins',sans-serif;color:#404191" style-hover="background:rgba(64,65,145,.06);color:#F18639">{{ n.label }}</a>
-        </sc-for>
+  <!-- barra fina fixa: contato + carrinho -->
+  <div style="position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:12px 20px;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);box-shadow:0 4px 24px -14px rgba(64,65,145,.3)">
+    <a href="#contato" style="font:600 14px/1 'Poppins',sans-serif;color:#404191;padding:10px 16px;border-radius:999px;transition:background .2s,color .2s" style-hover="background:rgba(64,65,145,.08);color:#F18639">Contato</a>
+    <button onClick="{{ openCart }}" aria-label="Carrinho" style="position:relative;flex:none;width:46px;height:46px;border-radius:13px;border:none;cursor:pointer;background:rgba(64,65,145,.08);color:#404191;display:grid;place-items:center;transition:background .25s" style-hover="background:rgba(64,65,145,.16)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <sc-if value="{{ cartCount }}" hint-placeholder-val="{{ false }}">
+        <span style="position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:#F18639;color:#fff;font:700 12px/22px 'Poppins',sans-serif;text-align:center;box-shadow:0 4px 10px -3px rgba(241,134,57,.8);animation:fsmBadge .3s ease">{{ cartCount }}</span>
+      </sc-if>
+    </button>
+  </div>
+
+  <!-- ===== HERO INSTITUCIONAL (logo sobre fachada) ===== -->
+  <section style="position:relative;min-height:clamp(340px,52vh,520px);display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:56px 24px">
+    <img src="https://i.imgur.com/RrRcM0Q.jpeg" alt="Fachada da Farmácia São Marcos" fetchpriority="high" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);filter:blur(2px)"/>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(64,65,145,.72),rgba(37,38,90,.62) 55%,rgba(20,20,45,.8))"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 30%,rgba(241,134,57,.22),transparent 60%)"></div>
+    <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:22px;animation:fsmFadeUp .9s cubic-bezier(.16,1,.3,1) both">
+      <div style="padding:22px 30px;border-radius:24px;background:rgba(255,255,255,.94);box-shadow:0 30px 70px -24px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.6)">
+        <img src="https://i.imgur.com/vm6RYb8.png" alt="Farmácia São Marcos" style="height:clamp(64px,9vw,104px);width:auto;display:block"/>
       </div>
-    </sc-if>
-  </header>
+      <p style="margin:0;max-width:520px;font:500 clamp(15px,2.2vw,19px)/1.5 'Poppins',sans-serif;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.4);text-wrap:balance">Sua saúde em primeiro lugar — atendimento humano, entrega rápida e os melhores preços da região.</p>
+    </div>
+  </section>
 
   <!-- ===== CATÁLOGO / BUSCA ===== -->
   <section class="sec" id="catalogo" style="max-width:1240px;margin:0 auto;padding:40px 28px 20px">
@@ -144,8 +137,8 @@
             </button>
             <div style="position:relative;padding:12px 12px 0;display:flex;justify-content:center">
               <sc-if value="{{ p.off }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:12px;left:12px;z-index:2;padding:5px 10px;border-radius:999px;background:#F18639;color:#fff;font:700 11px/1 'Poppins',sans-serif">-{{ p.off }}</span></sc-if>
-              <div style="width:96px;height:96px;flex:none;border-radius:16px;background:#eef0f9;display:flex;align-items:center;justify-content:center;overflow:hidden">
-                <img src="{{ p.img }}" alt="{{ p.name }}" loading="lazy" decoding="async" onError="{{ p.onImgErr }}" style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;padding:8px;display:block"/>
+              <div style="width:112px;height:112px;flex:none;border-radius:16px;background:#eef0f9;display:flex;align-items:center;justify-content:center;overflow:hidden">
+                <img src="{{ p.img }}" alt="{{ p.name }}" loading="lazy" decoding="async" onError="{{ p.onImgErr }}" style="width:100%;height:100%;object-fit:contain;padding:4px;display:block"/>
                 <span style="display:none;color:#F18639"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5 3.5 13.5a5 5 0 0 1 7-7l7 7a5 5 0 0 1-7 7z"/><path d="m8.5 8.5 7 7"/></svg></span>
               </div>
             </div>
@@ -542,7 +535,7 @@
   </sc-if>
 
   <!-- ===== CARRINHO FLUTUANTE ===== -->
-  <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ false }}">
+  <sc-if value="{{ showFab }}" hint-placeholder-val="{{ false }}">
     <button onClick="{{ openCart }}" aria-label="Abrir carrinho" style="position:fixed;bottom:22px;right:22px;z-index:390;display:flex;align-items:center;gap:12px;padding:13px 20px 13px 15px;border:none;cursor:pointer;border-radius:999px;background:#F18639;color:#fff;box-shadow:0 16px 36px -10px rgba(241,134,57,.75);transition:transform .2s" style-hover="transform:translateY(-3px)">
       <span style="position:relative;flex:none;display:grid;place-items:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span style="position:absolute;top:-9px;right:-11px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:#fff;color:#F18639;font:800 11px/20px 'Poppins',sans-serif;text-align:center">{{ cartCount }}</span></span>
       <span style="display:flex;flex-direction:column;align-items:flex-start;line-height:1.1"><span style="font:600 10px/1.2 'Poppins',sans-serif;opacity:.9">Ver pedido</span><span style="font:800 15px/1.1 'Poppins',sans-serif">{{ cartTotal }}</span></span>
@@ -878,7 +871,7 @@ class Component extends DCLogic {
       sintExpanded, sintCollapsed: !sintExpanded, toggleSint: ()=>this.setState(s=>({sintExpanded:!s.sintExpanded})),
       maisVendidos, ofertas, novidades, favCount: favs.length,
       onSearch: this.onSearchInput, hideSug: ()=>this.setState({showSug:false}),
-      cart, cartCount, cartTotal, isEmpty: cart.length===0, hasItems: cart.length>0,
+      cart, cartCount, cartTotal, isEmpty: cart.length===0, hasItems: cart.length>0, showFab: cart.length>0 && !this.state.open,
       cartOpen: this.state.open, stepCart: this.state.step==='cart', stepForm: this.state.step==='form',
       toast: this.state.toast, showToast: !!this.state.toast,
       form: f, cepLoading: this.state.cepLoading, cepError: this.state.cepError, hasCepError: !!this.state.cepError,
