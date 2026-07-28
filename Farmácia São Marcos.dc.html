@@ -807,10 +807,38 @@ class Component extends DCLogic {
     const useForOf=p=>{const words=wordsOf(p);for(const k in SMAP){if(SMAP[k].kw.some(w=>kwHit(words,w)))return k;}return '';};
     const matchSint = p => { if(!sintoma) return true; const m=SMAP[sintoma]; if(!m) return true; const words=wordsOf(p); return m.kw.some(w=>kwHit(words,w)); };
     const matchCat = p => (activeCat==='Todos' ? true : p.cat===activeCat) && matchSint(p);
+    const CATPFX=[
+      [/anticoncep|etinilestradiol|levonorgestrel|desogestrel|drospirenona|gestodeno|noretisterona|ciproterona|neovlar|selene|diane|yasmin|tamisa|level|microvlar|ciclo21|femina/,'Anticoncepcional'],
+      [/dipirona|paracetamol|novalgina|torsilax|dorflex|neosaldina|anador|tylenol|migran/,'Analgésico'],
+      [/ibuprofeno|nimesulida|diclofenaco|cetoprofeno|naproxeno|meloxicam|piroxicam|cataflam|nisulid|anti-inflam/,'Anti-inflamatório'],
+      [/loratadina|desloratadina|cetirizina|fexofenadina|hidroxizin|dexclorfenir|allegra|histamin|polaramine|alerg/,'Antialérgico'],
+      [/amoxicilina|azitromicina|cefalexin|ciprofloxacin|clindamicin|metronidazol|nistatina|penicilin|ampicilin|antibiotic/,'Antibiótico'],
+      [/omeprazol|pantoprazol|esomeprazol|lansoprazol|ranitidin|domperidona|estomago/,'Medicamento para o Estômago'],
+      [/simeticona|luftal|dropax|antiacid|pepsamar|gaviscon|azia/,'Antiácido'],
+      [/xarope|expectorant|acebrofilin|ambroxol|bromexina|guaifenesin/,'Xarope'],
+      [/losartana|enalapril|captopril|atenolol|anlodipin|valsartan|hidroclorotiazid|propranolol|carvedilol|pressao/,'Medicamento para Pressão'],
+      [/metformina|glibenclamid|gliclazid|insulin|glifage|diabet/,'Medicamento para Diabetes'],
+      [/vitamina|centrum|lavitan|redoxon|cebion|polivitamin/,'Vitamina'],
+      [/omega|magnesio|zinco|colageno|whey|creatina|suplement/,'Suplemento'],
+      [/colirio|colírio|lubrific.*olho|systane|lacrima/,'Colírio'],
+      [/protetor solar|fps\s?\d|fotoprotet/,'Protetor Solar'],
+      [/shampoo|xampu/,'Shampoo'],
+      [/condicionador/,'Condicionador'],
+      [/sabonete/,'Sabonete'],
+      [/hidratante|nivea.*corporal|creme corporal/,'Hidratante'],
+      [/fralda|pampers|huggies|mamypoko|turma/,'Fralda'],
+      [/pomada|hipoglos|bepantol|assadura|nebacetin/,'Pomada'],
+      [/curativo|band-aid|gaze|esparadrapo|micropore/,'Curativo'],
+      [/soro fisiol|agua oxigenada|algodao|antisseptic|primeiros socorros/,'Primeiros Socorros'],
+      [/teste de gravidez|clearblue/,'Teste de Gravidez'],
+      [/preservativ|camisinha|jontex|olla/,'Preservativo'],
+    ];
+    const catPrefix = p => { const b=norm((p.n||'')+' '+(p.f||'')); for(const [re,lab] of CATPFX){ if(re.test(b)) return lab; } return ''; };
+    const displayName = p => { const base=prettyName(p.n)||'Produto'; const pfx=catPrefix(p); if(!pfx) return base; if(norm(base).startsWith(norm(pfx.split(' ')[0]))) return base; return pfx+' '+base; };
     const qtok = q.split(/\s+/).filter(Boolean);
-    const blobOf = p => norm((p.n||'')+' '+(p.br||'')+' '+(p.cat||'')+' '+(p.f||'')+' '+(p.id||''));
+    const blobOf = p => norm((p.n||'')+' '+(p.br||'')+' '+(p.cat||'')+' '+(p.f||'')+' '+(p.id||'')+' '+catPrefix(p));
     const w1 = (a,b)=>{ if(a===b)return true; const la=a.length,lb=b.length; if(Math.abs(la-lb)>1)return false; let i=0,j=0,d=0; while(i<la&&j<lb){ if(a[i]===b[j]){i++;j++;} else { if(++d>1)return false; if(la>lb)i++; else if(lb>la)j++; else{i++;j++;} } } if(i<la)d+=la-i; if(j<lb)d+=lb-j; return d<=1; };
-    const matchQ = p => { if(!qtok.length) return true; const b=blobOf(p); return qtok.every(t=>b.includes(t)); };
+    const matchQ = p => { if(!qtok.length) return true; const b=blobOf(p); const bw=b.split(/[^a-z0-9]+/).filter(Boolean); return qtok.every(t=>b.includes(t)||bw.some(w=>w.length>3&&w1(w,t))); };
     const mny = n => this.money(n);
     // Mapa de imagens por nome — para adicionar novas, basta incluir {termo: url} aqui.
     const IMG_MAP = [
@@ -836,7 +864,7 @@ class Component extends DCLogic {
       full=full.replace(/\b(Mg|Mcg|Ml|Ui)\b/g,x=>x.toLowerCase());
       return full||raw; };
     const deco = p => { p=p||{}; const price = Number(p.promo||p.pr)||0; const pid=p.id!=null?String(p.id):''; return {
-        id:pid, name:prettyName(p.n)||'Produto', brand:p.br||p.cat||'', cat:p.cat||'',
+        id:pid, name:displayName(p)||'Produto', brand:p.br||p.cat||'', cat:p.cat||'',
         priceNum:price, price:mny(price),
         hasOld: !!(p.promo&&p.pr), old: (p.promo&&p.pr)?mny(p.pr):'', off: (p.promo&&p.pr)?(Math.round((1-p.promo/p.pr)*100)+'%'):'',
         onImgErr:(e)=>{ if(e&&e.target){ e.target.style.display='none'; var s=e.target.nextElementSibling; if(s) s.style.display='grid'; } },
@@ -849,7 +877,7 @@ class Component extends DCLogic {
     if(!filtered.length && q.length>=4){ filtered = catalog.filter(matchCat).filter(p=>{ const words=blobOf(p).split(/\s+/); return qtok.every(t=> t.length<4 ? words.some(w=>w.includes(t)) : words.some(w=> w.includes(t) || w1(w,t))); }); }
     const similar = (catalog.length && filtered.length===0) ? catalog.filter(matchCat).slice(0,6).map(p=>({name:p.n, pick:()=>this.setState({query:p.n,showSug:false,limit:24})})) : [];
     const catalogoView = filtered.slice(0,limit).map(deco);
-    const suggestions = ((this.state.query||'').trim().length>=2 ? filtered.slice(0,6).map(p=>({name:p.n, cat:p.cat, pick:()=>this.setState({query:p.n,showSug:false,limit:24})})) : []);
+    const suggestions = ((this.state.query||'').trim().length>=2 ? filtered.slice(0,6).map(p=>({name:displayName(p), cat:p.cat, pick:()=>this.setState({query:displayName(p),showSug:false,limit:24})})) : []);
     const ofertas = catalog.filter(p=>p.promo).slice(0,12).map(deco);
     const maisVendidos = catalog.filter(p=>p.e).slice(0,12).map(deco);
     const novidades = catalog.slice(-12).reverse().map(deco);
