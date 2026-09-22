@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0f1412;color:#eef2ef;font-family:'Barlow',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#4ade80;text-decoration:none}
+a:hover{color:#86efac}
+nav::-webkit-scrollbar{display:none}
+input::placeholder{color:#5f6e67}
+@keyframes rachaFlash{0%,100%{background:#dc2626}50%{background:#3b0a0a}}
+@keyframes rachaPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#0f1412">
+  <header style="position:sticky;top:0;z-index:10;background:rgba(15,20,18,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #1f2925">
+    <div style="max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+      <img src="https://i.imgur.com/nw1WEk5.png" alt="Super Racha" style="height:clamp(40px,6vw,52px);width:auto;max-width:200px;object-fit:contain;display:block;flex-shrink:0">
+      <nav style="display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1 1 auto;min-width:0">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="6">
+          <a href="#" onClick="{{ n.go }}" style="padding:8px 14px;border-radius:8px;background:{{ n.bg }};color:{{ n.fg }};font-weight:{{ n.fw }};font-size:15px;white-space:nowrap" style-hover="color:#eef2ef;background:{{ n.hoverBg }}">{{ n.label }}</a>
+        </sc-for>
+      </nav>
+    </div>
+  </header>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <main data-screen-label="Início" style="max-width:1180px;margin:0 auto;padding:32px 20px 56px;display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="color:#4ade80;font-size:13px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase">Terça, 22 de setembro</div>
+      <h1 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(34px,5vw,48px);line-height:1.05;text-transform:uppercase">Bem-vindo ao racha</h1>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px">
+      <section style="background:#161d1a;border:1px solid #223029;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="color:#a3b0aa;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase">Próximo racha</span>
+          <span style="background:#163823;color:#4ade80;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px">Em 7 dias</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:10px">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:56px;line-height:1">29</span>
+          <div style="display:flex;flex-direction:column">
+            <span style="font-weight:600;font-size:17px">Setembro</span>
+            <span style="color:#a3b0aa;font-size:14px">Terça-feira</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;border-top:1px solid #223029;padding-top:14px;font-size:15px">
+          <div style="display:flex;justify-content:space-between"><span style="color:#a3b0aa">Horário</span><span style="font-weight:600">20h00</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:#a3b0aa">Local</span><span style="font-weight:600">Arena Society Central</span></div>
+        </div>
+      </section>
+
+      <section style="background:#161d1a;border:1px solid #223029;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:16px">
+        <span style="color:#a3b0aa;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase">Confirmados</span>
+        <div style="display:flex;align-items:baseline;gap:6px">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:56px;line-height:1;color:#4ade80">18</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:28px;color:#6b7a73">/ 20</span>
+        </div>
+        <div style="height:8px;border-radius:999px;background:#223029;overflow:hidden">
+          <div style="width:90%;height:100%;background:#22c55e;border-radius:999px"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;color:#a3b0aa;border-top:1px solid #223029;padding-top:14px">
+          <span>2 vagas restantes</span>
+          <span>4 na espera</span>
+        </div>
+      </section>
+
+      <section style="background:#161d1a;border:1px solid #223029;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="color:#a3b0aa;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase">Partida atual</span>
+          <span style="display:flex;align-items:center;gap:6px;color:#4ade80;font-size:12px;font-weight:700;letter-spacing:0.1em">
+            <span style="width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,0.2)"></span>AO VIVO
+          </span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <img src="https://i.imgur.com/fDP8278.jpeg" alt="Camisa Time A" style="width:40px;height:48px;object-fit:contain;border-radius:6px;flex-shrink:0">
+            <span style="font-weight:600;font-size:17px">Time A</span>
+          </div>
+          <div style="color:#6b7a73;font-size:13px;font-weight:600;padding-left:17px">vs</div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <img src="https://i.imgur.com/YhLya7f.png" alt="Camisa Time B" style="width:40px;height:48px;object-fit:contain;border-radius:6px;flex-shrink:0">
+            <span style="font-weight:600;font-size:17px">Time B</span>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;color:#a3b0aa;border-top:1px solid #223029;padding-top:14px">
+          <span>Jogo 3 de 6</span>
+          <span style="font-weight:600;color:#eef2ef">07:42</span>
+        </div>
+      </section>
+
+      <section style="background:#12301f;border:1px solid #1f6b3c;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:16px">
+        <span style="color:#86efac;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase">Placar</span>
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;text-align:center">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <img src="https://i.imgur.com/fDP8278.jpeg" alt="Camisa Time A" style="width:47px;height:56px;object-fit:contain;border-radius:6px;flex-shrink:0">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:72px;line-height:1;color:#4ade80">2</span>
+            <span style="font-size:13px;color:#c8d3cd;font-weight:600">TIME A</span>
+          </div>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:36px;color:#3f8a5c">×</span>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <img src="https://i.imgur.com/YhLya7f.png" alt="Camisa Time B" style="width:47px;height:56px;object-fit:contain;border-radius:6px;flex-shrink:0">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:72px;line-height:1">1</span>
+            <span style="font-size:13px;color:#c8d3cd;font-weight:600">TIME B</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:14px;color:#c8d3cd;border-top:1px solid #1f6b3c;padding-top:14px">
+          <div style="display:flex;justify-content:space-between"><span>Rafael</span><span>03'</span></div>
+          <div style="display:flex;justify-content:space-between"><span>Diego</span><span>05'</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:#8fa39a">Bruno (Time B)</span><span style="color:#8fa39a">06'</span></div>
+        </div>
+      </section>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isPlayers }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Jogadores" style="max-width:1180px;margin:0 auto;padding:32px 20px 56px;display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <div style="color:#4ade80;font-size:13px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase">{{ countLabel }}</div>
+        <h1 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(34px,5vw,48px);line-height:1.05;text-transform:uppercase">Jogadores</h1>
+      </div>
+      <button onClick="{{ openNew }}" style="display:flex;align-items:center;gap:8px;background:#22c55e;color:#0b120e;border:none;border-radius:10px;padding:12px 18px;min-height:44px;font-family:'Barlow',sans-serif;font-weight:700;font-size:15px;cursor:pointer" style-hover="background:#4ade80">
+        <span style="font-size:20px;line-height:1;font-weight:600">+</span>Novo jogador
+      </button>
+    </div>
+
+    <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+      <div style="border:1px dashed #2a3a32;border-radius:16px;padding:48px 20px;text-align:center;color:#a3b0aa;font-size:15px">Nenhum jogador cadastrado ainda.</div>
+    </sc-if>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px">
+      <sc-for list="{{ players }}" as="p" hint-placeholder-count="8">
+        <button onClick="{{ p.open }}" style="text-align:left;background:#161d1a;border:1px solid #223029;border-radius:16px;padding:0;overflow:hidden;cursor:pointer;color:#eef2ef;font-family:'Barlow',sans-serif;display:flex;flex-direction:column" style-hover="border-color:#2f7a4f;background:#18211d">
+          <div style="aspect-ratio:1/1;width:100%;background:#1c2621;position:relative;display:flex;align-items:center;justify-content:center">
+            <sc-if value="{{ p.hasFoto }}">
+              <div role="img" aria-label="{{ p.nome }}" style="position:absolute;inset:0;background-image:{{ p.fotoBg }};background-size:cover;background-position:center"></div>
+            </sc-if>
+            <sc-if value="{{ p.noFoto }}">
+              <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:44px;color:#3c5446">{{ p.initials }}</span>
+            </sc-if>
+            <span style="position:absolute;top:8px;left:8px;background:rgba(11,18,14,0.82);color:{{ p.posColor }};font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 8px;border-radius:999px">{{ p.posLabel }}</span>
+          </div>
+          <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:8px;width:100%">
+            <div style="display:flex;flex-direction:column;gap:1px;min-width:0">
+              <span style="font-weight:600;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.nome }}</span>
+              <span style="color:#8fa39a;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.apelidoLabel }}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="display:flex;gap:3px">
+                <sc-for list="{{ p.bars }}" as="b" hint-placeholder-count="3">
+                  <span style="width:14px;height:5px;border-radius:2px;background:{{ b.bg }}"></span>
+                </sc-for>
+              </div>
+              <span style="font-size:12px;font-weight:600;color:#a3b0aa">{{ p.skillLabel }}</span>
+            </div>
+          </div>
+        </button>
+      </sc-for>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isPresenca }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Presença" style="max-width:1180px;margin:0 auto;padding:32px 20px 56px;display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="color:#4ade80;font-size:13px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase">Terça, 29 de setembro · 20h00</div>
+      <h1 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(34px,5vw,48px);line-height:1.05;text-transform:uppercase">Presença</h1>
+    </div>
+      <button onClick="{{ openImport }}" style="display:flex;align-items:center;gap:8px;background:#22c55e;color:#0b120e;border:none;border-radius:10px;padding:12px 18px;min-height:44px;font-family:'Barlow',sans-serif;font-weight:700;font-size:15px;cursor:pointer" style-hover="background:#4ade80">Importar lista do WhatsApp</button>
+    </div>
+    <sc-if value="{{ hasImportMsg }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#12301f;border:1px solid #1f6b3c;border-radius:12px;padding:12px 16px;font-size:15px;color:#c8f0d6">
+        <span>{{ importMsg }}</span>
+        <button onClick="{{ clearImportMsg }}" aria-label="Fechar" style="width:32px;height:32px;border:none;border-radius:8px;background:none;color:#86efac;font-size:20px;cursor:pointer">×</button>
+      </div>
+    </sc-if>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:12px">
+      <div style="background:#161d1a;border:1px solid #223029;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="color:#a3b0aa;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase">Confirmados</span><span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:40px;line-height:1;color:#4ade80">{{ presConf }}</span></div>
+      <div style="background:#161d1a;border:1px solid #223029;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="color:#a3b0aa;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase">Não vão</span><span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:40px;line-height:1">{{ presNao }}</span></div>
+      <div style="background:#161d1a;border:1px solid #223029;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="color:#a3b0aa;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase">Sem resposta</span><span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:40px;line-height:1;color:#8fa39a">{{ presPend }}</span></div>
+    </div>
+    <div style="background:#161d1a;border:1px solid #223029;border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
+      <sc-for list="{{ presenca }}" as="r" hint-placeholder-count="8">
+        <button onClick="{{ r.open }}" style="display:flex;align-items:center;gap:12px;padding:12px 18px;border:none;border-bottom:1px solid #1f2925;background:none;color:#eef2ef;font-family:'Barlow',sans-serif;text-align:left;width:100%;cursor:pointer" style-hover="background:#18211d">
+          <div style="width:40px;height:40px;border-radius:10px;background:#1c2621;background-image:{{ r.fotoBg }};background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:16px;color:#3c5446">{{ r.initialsIfNoFoto }}</div>
+          <div style="display:flex;flex-direction:column;min-width:0;flex:1">
+            <span style="font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.nome }}</span>
+            <span style="color:#8fa39a;font-size:13px">{{ r.posLabel }}</span>
+          </div>
+          <span style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:5px 10px;border-radius:999px;background:{{ r.stBg }};color:{{ r.stFg }};white-space:nowrap">{{ r.stLabel }}</span>
+        </button>
+      </sc-for>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isTimes }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Times" style="max-width:1180px;margin:0 auto;padding:32px 20px 56px;display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="color:#4ade80;font-size:13px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase">Sorteio de 22 de setembro</div>
+      <h1 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(34px,5vw,48px);line-height:1.05;text-transform:uppercase">Times</h1>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
+      <sc-for list="{{ teams }}" as="t" hint-placeholder-count="2">
+        <section style="background:#161d1a;border:1px solid #223029;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div role="img" aria-label="{{ t.alt }}" style="width:47px;height:56px;border-radius:6px;flex-shrink:0;background-image:{{ t.shirtBg }};background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+            <div style="display:flex;flex-direction:column">
+              <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;text-transform:uppercase;line-height:1.1">{{ t.nome }}</span>
+              <span style="color:#a3b0aa;font-size:14px">{{ t.count }}</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;border-top:1px solid #223029">
+            <sc-for list="{{ t.players }}" as="p" hint-placeholder-count="4">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #1f2925;font-size:15px">
+                <span style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.nome }}</span>
+                <span style="color:{{ p.posColor }};font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">{{ p.posLabel }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+      </sc-for>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isPartidas }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Partidas" style="max-width:1180px;margin:0 auto;padding:32px 20px 56px;display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="color:#4ade80;font-size:13px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase">Terça, 22 de setembro</div>
+      <h1 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(34px,5vw,48px);line-height:1.05;text-transform:uppercase">Partidas</h1>
+    </div>
+    <sc-if value="{{ isSetup }}" hint-placeholder-val="{{ true }}">
+      <section style="background:#161d1a;border:1px solid #223029;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+          <span style="color:#a3b0aa;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase">{{ linhaLabel }}</span>
+          <span style="color:#8fa39a;font-size:14px">Time A × Time B</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="color:#a3b0aa;font-size:13px;font-weight:600">Regra da partida</span>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:10px">
+            <sc-for list="{{ ruleOpts }}" as="o" hint-placeholder-count="2">
+              <button onClick="{{ o.pick }}" style="text-align:left;padding:16px;border-radius:12px;border:none;font-family:'Barlow',sans-serif;cursor:pointer;background:{{ o.bg }};border:1px solid {{ o.border }};color:#eef2ef;display:flex;flex-direction:column;gap:4px">
+                <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;text-transform:uppercase;color:{{ o.titleColor }}">{{ o.title }}</span>
+                <span style="font-size:14px;color:#a3b0aa">{{ o.sub }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <button onClick="{{ startMatch }}" style="min-height:52px;border-radius:12px;border:none;font-family:'Barlow',sans-serif;cursor:pointer;background:#22c55e;color:#0b120e;font-weight:700;font-size:17px" style-hover="background:#4ade80">Iniciar jogo</button>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ isRunning }}" hint-placeholder-val="{{ false }}">
+      <section style="background:#12301f;border:1px solid #1f6b3c;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+          <span style="display:flex;align-items:center;gap:8px;color:#4ade80;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase">
+            <span style="width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,0.2)"></span>{{ linhaLabel }} · Ao vivo
+          </span>
+          <span style="color:#c8d3cd;font-size:14px">{{ ruleLabel }}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0">
+            <img src="https://i.imgur.com/fDP8278.jpeg" alt="Camisa Time A" style="width:47px;height:56px;object-fit:contain;border-radius:6px;flex-shrink:0">
+            <span style="font-weight:700;font-size:16px">Time A</span>
+            <sc-if value="{{ isLive }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:6px">
+                <button onClick="{{ remGoalA }}" aria-label="Remover gol Time A" style="width:44px;height:44px;border-radius:10px;border:none;font-family:'Barlow',sans-serif;cursor:pointer;background:#1f2925;color:#eef2ef;font-size:22px;font-weight:600" style-hover="background:#2a3832">−</button>
+                <button onClick="{{ addGoalA }}" aria-label="Adicionar gol Time A" style="width:44px;height:44px;border-radius:10px;border:none;font-family:'Barlow',sans-serif;cursor:pointer;background:#22c55e;color:#0b120e;font-size:22px;font-weight:700" style-hover="background:#4ade80">+</button>
+              </div>
+            </sc-if>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(56px,12vw,84px);line-height:1">
+              <span style="color:#4ade80">{{ scoreA }}</span><span style="color:#3f8a5c;font-size:0.5em">×</span><span>{{ scoreB }}</span>
+            </div>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:30px;letter-spacing:0.04em;color:#eef2ef;background:#0f1412;border-radius:8px;padding:2px 12px;font-variant-numeric:tabular-nums">{{ clock }}</span>
+            <span style="font-size:12px;color:#8fa39a">{{ clockSub }}</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0">
+            <img src="https://i.imgur.com/YhLya7f.png" alt="Camisa Time B" style="width:47px;height:56px;object-fit:contain;border-radius:6px;flex-shrink:0">
+            <span style="font-weight:700;font-size:16px">Time B</span>
+            <sc-if value="{{ isLive }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:6px">
+                <button onClick="{{ remGoalB }}" aria-label="Remover gol Time B" style="width:44px;height:44px;border-radius:10px;border:none;font-family:'Barlow',sans-serif;cursor:pointer;background:#1f2925;color:#eef2ef;font-size:22px;font-weight:600" style-hover="background:#2a3832">−</button>
+                <button onClick="{{ addGoalB }}" aria-label="Adicionar gol Time B" style="width:44px;height:44px;border-radius:10px;border:none;font-family:'Barlow',sans-serif;cursor:pointer;background:#22c55e;color:#0b120e;font-size:22px;font-weight:700" style-hover="background:#4ade80">+</button>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+        <sc-if value="{{ hasGoals }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;border-top:1px solid #1f6b3c;padding-top:10px">
+            <sc-for list="{{ goalLog }}" as="g" hint-placeholder-count="2">
+              <div style="display:flex;align-items:center;gap:10px;padding:6px 0;font-size:14px">
+                <span style="width:22px;height:22px;border-radius:6px;background:#1f2925;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#c8d3cd;flex-shrink:0">{{ g.team }}</span>
+                <span style="font-weight:600;flex:1;min-width:0">{{ g.scorer }}<span style="color:#8fa39a;font-weight:400">{{ g.assist }}</span></span>
+                <span style="color:#8fa39a">{{ g.min }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+      <section style="background:#161d1a;border:1px solid #223029;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+          <span style="color:#a3b0aa;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase">{{ linhaLabel }} · Encerrada</span>
+          <span style="color:#8fa39a;font-size:14px">{{ ruleLabel }}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0">
+            <img src="https://i.imgur.com/fDP8278.jpeg" alt="Camisa Time A" style="width:47px;height:56px;object-fit:contain;border-radius:6px;flex-shrink:0">
+            <span style="font-weight:700;font-size:16px">Time A</span>
+            <sc-if value="{{ isLive }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:6px">
+                <button onClick="{{ remGoalA }}" aria-label="Remover gol Time A" style="width:44px;height:44px;border-radius:10px;border:none;font-family:'Barlow',sans-serif;cursor:pointer;background:#1f2925;color:#eef2ef;font-size:22px;font-weight:600" style-hover="background:#2a3832">−</button>
+                <button onClick="{{ addGoalA }}" aria-label="Adicionar gol Time A" style="width:44px;height:44px;border-radius:10px;border:none;font-family:'Barlow',sans-serif;cursor:pointer;background:#22c55e;color:#0b120e;font-size:22px;font-weight:700" style-hover="background:#4ade80">+</button>
+              </div>
+            </sc-if>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(56px,12vw,84px);line-height:1">
+            <span style="color:#4ade80">{{ scoreA }}</span><span style="color:#3f8a5c;font-size:0.5em">×</span><span>{{ scoreB }}</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0">
+            <img src="https://i.imgur.com/YhLya7f.png" alt="Camisa Time B" style="width:47px;height:56px;object-fit:contain;border-radius:6px;flex-shrink:0">
+            <span style="font-weight:700;font-size:16px">Time B</span>
+            <sc-if value="{{ isLive }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:6px">
+                <button onClick="{{ remGoalB }}" aria-label="Remover gol Time B" style="width:44px;height:44px;border-radius:10px;border:none;font-family:'Barlow',sans-serif;cursor:pointer;background:#1f2925;color:#eef2ef;font-size:22px;font-weight:600" style-hover="background:#2a3832">−</button>
+                <button onClick="{{ addGoalB }}" aria-label="Adicionar gol Time B" style="width:44px;height:44px;border-radius:10px;border:none;font-family:'Barlow',sans-serif;cursor:pointer;background:#22c55e;color:#0b120e;font-size:22px;font-weight:700" style-hover="background:#4ade80">+</button>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+        <div style="text-align:center;font-weight:600;font-size:16px;color:#c8d3cd">{{ resultLabel }}</div>
+        <sc-if value="{{ hasGoals }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;border-top:1px solid #223029;padding-top:10px">
+            <sc-for list="{{ goalLog }}" as="g" hint-placeholder-count="2">
+              <div style="display:flex;align-items:center;gap:10px;padding:6px 0;font-size:14px">
+                <span style="width:22px;height:22px;border-radius:6px;background:#1f2925;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#c8d3cd;flex-shrink:0">{{ g.team }}</span>
+                <span style="font-weight:600;flex:1;min-width:0">{{ g.scorer }}<span style="color:#8fa39a;font-weight:400">{{ g.assist }}</span></span>
+                <span style="color:#8fa39a">{{ g.min }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <button onClick="{{ nextLinha }}" style="min-height:52px;border-radius:12px;border:none;font-family:'Barlow',sans-serif;cursor:pointer;background:#22c55e;color:#0b120e;font-weight:700;font-size:17px" style-hover="background:#4ade80">Iniciar próxima linha</button>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ hasHist }}" hint-placeholder-val="{{ false }}">
+    <span style="color:#a3b0aa;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase">Linhas encerradas</span>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <sc-for list="{{ matches }}" as="m" hint-placeholder-count="6">
+        <div style="background:{{ m.bg }};border:1px solid {{ m.border }};border-radius:16px;padding:16px 20px;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:12px">
+          <div style="display:flex;align-items:center;gap:10px;min-width:0">
+            <img src="https://i.imgur.com/fDP8278.jpeg" alt="Camisa Time A" style="width:34px;height:40px;object-fit:contain;border-radius:6px;flex-shrink:0">
+            <span style="font-weight:600;font-size:16px">Time A</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:2px">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:34px;line-height:1;white-space:nowrap">{{ m.score }}</span>
+            <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:{{ m.stColor }};white-space:nowrap">{{ m.status }}</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px;min-width:0">
+            <span style="font-weight:600;font-size:16px">Time B</span>
+            <img src="https://i.imgur.com/YhLya7f.png" alt="Camisa Time B" style="width:34px;height:40px;object-fit:contain;border-radius:6px;flex-shrink:0">
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    </sc-if>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isRanking }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Ranking" style="max-width:1180px;margin:0 auto;padding:32px 20px 56px;display:flex;flex-direction:column;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="color:#4ade80;font-size:13px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase">Temporada 2026</div>
+      <h1 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(34px,5vw,48px);line-height:1.05;text-transform:uppercase">Ranking</h1>
+    </div>
+    <div style="background:#161d1a;border:1px solid #223029;border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
+      <div style="display:grid;grid-template-columns:36px minmax(0,1fr) 52px 52px 52px;gap:8px;padding:12px 18px;border-bottom:1px solid #223029;color:#8fa39a;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">
+        <span>#</span><span>Jogador</span><span style="text-align:right">Gols</span><span style="text-align:right">Vit.</span><span style="text-align:right">Pts</span>
+      </div>
+      <sc-for list="{{ ranking }}" as="r" hint-placeholder-count="8">
+        <div style="display:grid;grid-template-columns:36px minmax(0,1fr) 52px 52px 52px;gap:8px;align-items:center;padding:12px 18px;border-bottom:1px solid #1f2925;font-size:15px">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;color:{{ r.posColor }}">{{ r.pos }}</span>
+          <span style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.nome }}</span>
+          <span style="text-align:right;color:#c8d3cd">{{ r.gols }}</span>
+          <span style="text-align:right;color:#c8d3cd">{{ r.vit }}</span>
+          <span style="text-align:right;font-weight:700;color:#4ade80">{{ r.pts }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ goalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeGoal }}" style="position:fixed;inset:0;z-index:60;background:rgba(5,8,7,0.75);display:flex;align-items:center;justify-content:center;padding:16px">
+      <div onClick="{{ stop }}" style="width:100%;max-width:520px;max-height:calc(100vh - 32px);overflow-y:auto;background:#161d1a;border:1px solid #26352d;border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div role="img" aria-label="Camisa" style="width:34px;height:40px;flex-shrink:0;background-image:{{ goalShirtBg }};background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+            <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;text-transform:uppercase">{{ goalTitle }}</h2>
+          </div>
+          <button onClick="{{ closeGoal }}" aria-label="Fechar" style="width:40px;height:40px;border-radius:10px;border:none;background:#1f2925;color:#a3b0aa;font-size:22px;line-height:1;cursor:pointer;flex-shrink:0" style-hover="color:#eef2ef">×</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="color:#a3b0aa;font-size:13px;font-weight:600">Quem marcou?</span>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <sc-for list="{{ goalScorers }}" as="c" hint-placeholder-count="6">
+              <button onClick="{{ c.pick }}" style="min-height:40px;padding:0 14px;border-radius:999px;border:none;font-family:'Barlow',sans-serif;cursor:pointer;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.border }};font-weight:600;font-size:14px">{{ c.nome }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="color:#a3b0aa;font-size:13px;font-weight:600">Assistência</span>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <sc-for list="{{ goalAssists }}" as="c" hint-placeholder-count="6">
+              <button onClick="{{ c.pick }}" style="min-height:40px;padding:0 14px;border-radius:999px;border:none;font-family:'Barlow',sans-serif;cursor:pointer;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.border }};font-weight:600;font-size:14px">{{ c.nome }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;border-top:1px solid #223029;padding-top:18px">
+          <button onClick="{{ closeGoal }}" style="min-height:44px;padding:0 18px;border-radius:10px;border:1px solid #2a3a32;background:none;color:#eef2ef;font-family:'Barlow',sans-serif;font-weight:600;font-size:15px;cursor:pointer" style-hover="background:#1f2925">Cancelar</button>
+          <button onClick="{{ confirmGoal }}" style="min-height:44px;padding:0 20px;border-radius:10px;border:none;background:{{ goalBtnBg }};color:{{ goalBtnFg }};font-family:'Barlow',sans-serif;font-weight:700;font-size:15px;cursor:pointer">Confirmar gol</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+  {{ endOverlay }}
+
+  <sc-if value="{{ importOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeImport }}" style="position:fixed;inset:0;z-index:50;background:rgba(5,8,7,0.75);display:flex;align-items:center;justify-content:center;padding:16px">
+      <div onClick="{{ stop }}" style="width:100%;max-width:640px;max-height:calc(100vh - 32px);overflow-y:auto;background:#161d1a;border:1px solid #26352d;border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+          <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;text-transform:uppercase">Importar lista do WhatsApp</h2>
+          <button onClick="{{ closeImport }}" aria-label="Fechar" style="width:40px;height:40px;border-radius:10px;border:none;background:#1f2925;color:#a3b0aa;font-size:22px;line-height:1;cursor:pointer;flex-shrink:0" style-hover="color:#eef2ef">×</button>
+        </div>
+        <span style="color:#a3b0aa;font-size:14px;line-height:1.5">Cole a mensagem completa do grupo. Nomes numerados e linhas “Goleiro: nome” são reconhecidos automaticamente.</span>
+        <textarea value="{{ importText }}" onChange="{{ onImportText }}" placeholder="Cole aqui a lista do grupo" style="min-height:260px;resize:vertical;padding:14px;border-radius:12px;border:1px solid #2a3a32;background:#0f1412;color:#eef2ef;font-family:'Barlow',sans-serif;font-size:16px;line-height:1.5;outline:none" style-focus="border-color:#22c55e"></textarea>
+        <sc-if value="{{ hasPreview }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <span style="color:#a3b0aa;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase">{{ previewLabel }}</span>
+            <div style="display:flex;flex-wrap:wrap;gap:6px">
+              <sc-for list="{{ preview }}" as="c" hint-placeholder-count="6">
+                <span style="display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:#1f2925;border:1px solid {{ c.border }};font-size:14px;font-weight:600">{{ c.nome }}<span style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:{{ c.tagColor }}">{{ c.tag }}</span></span>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <div style="display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;border-top:1px solid #223029;padding-top:18px">
+          <button onClick="{{ closeImport }}" style="min-height:44px;padding:0 18px;border-radius:10px;border:1px solid #2a3a32;background:none;color:#eef2ef;font-family:'Barlow',sans-serif;font-weight:600;font-size:15px;cursor:pointer" style-hover="background:#1f2925">Cancelar</button>
+          <button onClick="{{ doImport }}" style="min-height:44px;padding:0 20px;border-radius:10px;border:none;background:{{ importBg }};color:{{ importFg }};font-family:'Barlow',sans-serif;font-weight:700;font-size:15px;cursor:pointer">Confirmar presença</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:50;background:rgba(5,8,7,0.75);display:flex;align-items:center;justify-content:center;padding:16px">
+      <div onClick="{{ stop }}" style="width:100%;max-width:480px;max-height:calc(100vh - 32px);overflow-y:auto;background:#161d1a;border:1px solid #26352d;border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:20px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h2 style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;text-transform:uppercase">{{ modalTitle }}</h2>
+          <button onClick="{{ closeModal }}" aria-label="Fechar" style="width:40px;height:40px;border-radius:10px;border:none;background:#1f2925;color:#a3b0aa;font-size:22px;line-height:1;cursor:pointer" style-hover="color:#eef2ef">×</button>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:16px">
+          <div style="width:88px;height:88px;border-radius:14px;overflow:hidden;background:#1f2a24;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative">
+            <sc-if value="{{ formHasFoto }}">
+              <div role="img" aria-label="Foto" style="position:absolute;inset:0;background-image:{{ formFotoBg }};background-size:cover;background-position:center"></div>
+            </sc-if>
+            <sc-if value="{{ formNoFoto }}">
+              <span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:32px;color:#3c5446">{{ formInitials }}</span>
+            </sc-if>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;border-radius:10px;border:1px solid #2f7a4f;color:#4ade80;font-weight:600;font-size:14px;cursor:pointer" style-hover="background:#163823">
+              {{ photoLabel }}
+              <input type="file" accept="image/*" onChange="{{ onPhoto }}" style="display:none">
+            </label>
+            <sc-if value="{{ formHasFoto }}">
+              <button onClick="{{ removePhoto }}" style="background:none;border:none;padding:0;color:#8fa39a;font-family:'Barlow',sans-serif;font-size:13px;cursor:pointer;text-align:left" style-hover="color:#eef2ef">Remover foto</button>
+            </sc-if>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="color:#a3b0aa;font-size:13px;font-weight:600">Nome</label>
+          <input value="{{ form.nome }}" onChange="{{ onNome }}" placeholder="Nome completo" style="min-height:46px;padding:0 14px;border-radius:10px;border:1px solid #2a3a32;background:#0f1412;color:#eef2ef;font-family:'Barlow',sans-serif;font-size:16px;outline:none" style-focus="border-color:#22c55e">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="color:#a3b0aa;font-size:13px;font-weight:600">Apelido</label>
+          <input value="{{ form.apelido }}" onChange="{{ onApelido }}" placeholder="Como é chamado no racha" style="min-height:46px;padding:0 14px;border-radius:10px;border:1px solid #2a3a32;background:#0f1412;color:#eef2ef;font-family:'Barlow',sans-serif;font-size:16px;outline:none" style-focus="border-color:#22c55e">
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span style="color:#a3b0aa;font-size:13px;font-weight:600">Posição</span>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#0f1412;border:1px solid #2a3a32;border-radius:12px;padding:4px">
+            <sc-for list="{{ posOpts }}" as="o" hint-placeholder-count="2">
+              <button onClick="{{ o.pick }}" style="min-height:40px;border:none;border-radius:8px;background:{{ o.bg }};color:{{ o.fg }};font-family:'Barlow',sans-serif;font-weight:600;font-size:15px;cursor:pointer">{{ o.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span style="color:#a3b0aa;font-size:13px;font-weight:600">Habilidade</span>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;background:#0f1412;border:1px solid #2a3a32;border-radius:12px;padding:4px">
+            <sc-for list="{{ skillOpts }}" as="o" hint-placeholder-count="3">
+              <button onClick="{{ o.pick }}" style="min-height:40px;border:none;border-radius:8px;background:{{ o.bg }};color:{{ o.fg }};font-family:'Barlow',sans-serif;font-weight:600;font-size:15px;cursor:pointer">{{ o.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ confirmDel }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#2a1414;border:1px solid #5c2424;border-radius:12px;padding:12px 14px">
+            <span style="font-size:14px;color:#f3c4c4">Excluir este jogador?</span>
+            <div style="display:flex;gap:8px">
+              <button onClick="{{ cancelDel }}" style="min-height:40px;padding:0 14px;border-radius:8px;border:1px solid #5c2424;background:none;color:#f3c4c4;font-family:'Barlow',sans-serif;font-weight:600;cursor:pointer">Não</button>
+              <button onClick="{{ doDelete }}" style="min-height:40px;padding:0 14px;border-radius:8px;border:none;background:#dc4a4a;color:#ffffff;font-family:'Barlow',sans-serif;font-weight:700;cursor:pointer">Sim, excluir</button>
+            </div>
+          </div>
+        </sc-if>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px solid #223029;padding-top:18px">
+          <div>
+            <sc-if value="{{ showDelBtn }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ askDel }}" style="min-height:44px;padding:0 4px;border:none;background:none;color:#f08080;font-family:'Barlow',sans-serif;font-weight:600;font-size:15px;cursor:pointer" style-hover="color:#ffa3a3">Excluir cadastro</button>
+            </sc-if>
+          </div>
+          <div style="display:flex;gap:8px;margin-left:auto">
+            <button onClick="{{ closeModal }}" style="min-height:44px;padding:0 18px;border-radius:10px;border:1px solid #2a3a32;background:none;color:#eef2ef;font-family:'Barlow',sans-serif;font-weight:600;font-size:15px;cursor:pointer" style-hover="background:#1f2925">Cancelar</button>
+            <button onClick="{{ save }}" style="min-height:44px;padding:0 20px;border-radius:10px;border:none;background:{{ saveBg }};color:{{ saveFg }};font-family:'Barlow',sans-serif;font-weight:700;font-size:15px;cursor:pointer">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  static KEY = 'racha_jogadores_v2';
+  static PKEY = 'racha_presenca_v1';
+  static SEED = [
+    { id: 1, nome: 'Tony', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 2, nome: 'Guigui', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 3, nome: 'Zé Maria', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 4, nome: 'Kevin', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 5, nome: 'Felype', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 6, nome: 'João Carlos', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 7, nome: 'Cleverton', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 8, nome: 'Bombado', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 9, nome: 'Buiu', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 10, nome: 'Alex', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 11, nome: 'Flavio', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 12, nome: 'Quinho', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 13, nome: 'Gabriel Pedreiro', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 14, nome: 'Pedrinho', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 15, nome: 'Elivelton', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 16, nome: 'Thales', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 17, nome: 'Evaldo', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 18, nome: 'Rick', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 19, nome: 'Gabriel D.', apelido: '', posicao: 'linha', habilidade: 'mediano', foto: '' },
+    { id: 20, nome: 'Gabriel', apelido: '', posicao: 'goleiro', habilidade: 'mediano', foto: '' },
+    { id: 21, nome: 'Diogo', apelido: '', posicao: 'goleiro', habilidade: 'mediano', foto: '' }
+  ];
+  state = { page: this.loadPage(), players: this.loadPlayers(), form: null, confirmDel: false, presenca: this.loadPresenca(), importOpen: false, importText: '', importMsg: '', match: this.loadMatch(), hist: this.loadHist(), goalTeam: null, goalScorer: '', goalAssist: '' };
+
+  componentDidMount() { this.timer = setInterval(() => this.tick(), 250); }
+  componentWillUnmount() { clearInterval(this.timer); }
+  loadMatch() {
+    try { const s = localStorage.getItem('racha_partida_v1'); if (s) return JSON.parse(s); } catch (e) {}
+    return { phase: 'setup', rule: 'tempo', linha: 1, startTs: 0, endMs: 0, goals: [] };
+  }
+  loadHist() { try { const s = localStorage.getItem('racha_partidas_hist_v1'); if (s) return JSON.parse(s); } catch (e) {} return []; }
+  setMatch(patch, extra) {
+    const match = { ...this.state.match, ...patch };
+    try { localStorage.setItem('racha_partida_v1', JSON.stringify(match)); } catch (e) {}
+    this.setState({ match, ...(extra || {}) });
+    return match;
+  }
+  elapsed() { const m = this.state.match; return m.phase === 'live' ? Date.now() - m.startTs : m.endMs; }
+  score(m, t) { return m.goals.filter(g => g.team === t).length; }
+  checkEnd(m) {
+    if (m.phase !== 'live') return;
+    const el = Date.now() - m.startTs;
+    const over = m.rule === 'tempo' ? el >= 600000 : (this.score(m, 'A') >= 2 || this.score(m, 'B') >= 2);
+    if (over) {
+      this.setMatch({ phase: 'ended', endMs: m.rule === 'tempo' ? 600000 : el }, { goalTeam: null });
+      try { navigator.vibrate && navigator.vibrate([400, 200, 400, 200, 400]); } catch (e) {}
+    }
+  }
+  tick() { const m = this.state.match; if (m.phase === 'live') { this.checkEnd(m); this.forceUpdate(); } }
+  fmt(ms) { const s = Math.max(0, Math.floor(ms / 1000)); return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
+  confirmGoal() {
+    const { goalTeam, goalScorer, goalAssist, match } = this.state;
+    if (!goalTeam || !goalScorer || match.phase !== 'live') return;
+    const m = this.setMatch({ goals: [...match.goals, { team: goalTeam, scorer: goalScorer, assist: goalAssist || '', ms: Date.now() - match.startTs }] }, { goalTeam: null });
+    this.checkEnd(m);
+  }
+  removeGoal(t) {
+    const g = [...this.state.match.goals];
+    for (let i = g.length - 1; i >= 0; i--) if (g[i].team === t) { g.splice(i, 1); break; }
+    this.setMatch({ goals: g });
+  }
+  finishMatch() {
+    const m = this.state.match;
+    const hist = [{ linha: m.linha, a: this.score(m, 'A'), b: this.score(m, 'B') }, ...this.state.hist];
+    try { localStorage.setItem('racha_partidas_hist_v1', JSON.stringify(hist)); } catch (e) {}
+    this.setMatch({ phase: 'done' }, { hist });
+  }
+  matchVals(list) {
+    const m = this.state.match;
+    const el = this.elapsed();
+    const a = this.score(m, 'A'), b = this.score(m, 'B');
+    const tA = list.filter((_, i) => i % 2 === 0), tB = list.filter((_, i) => i % 2 === 1);
+    const rules = [['tempo', '10 minutos', 'Termina ao completar 10:00'], ['gols', 'Até 2 gols', 'Termina quando um time marcar 2 gols']];
+    const ruleOpts = rules.map(r => { const on = m.rule === r[0]; return { title: r[1], sub: r[2], bg: on ? '#12301f' : '#0f1412', border: on ? '#22c55e' : '#2a3a32', titleColor: on ? '#4ade80' : '#eef2ef', pick: () => this.setMatch({ rule: r[0] }) }; });
+    const { goalTeam, goalScorer, goalAssist } = this.state;
+    const teamList = goalTeam === 'B' ? tB : tA;
+    const pool = teamList.length ? teamList : list;
+    const chip = (nome, on, pick) => ({ nome, pick, bg: on ? '#22c55e' : '#0f1412', fg: on ? '#0b120e' : '#eef2ef', border: on ? '#22c55e' : '#2a3a32' });
+    const goalScorers = pool.map(p => chip(p.nome, goalScorer === p.nome, () => this.setState(s => ({ goalScorer: p.nome, goalAssist: s.goalAssist === p.nome ? '' : s.goalAssist }))));
+    const goalAssists = [chip('Sem assistência', !goalAssist, () => this.setState({ goalAssist: '' }))]
+      .concat(pool.filter(p => p.nome !== goalScorer).map(p => chip(p.nome, goalAssist === p.nome, () => this.setState({ goalAssist: p.nome }))));
+    const goalLog = m.goals.map(g => ({ team: g.team, scorer: g.scorer, assist: g.assist ? ' · assist. ' + g.assist : '', min: Math.floor(g.ms / 60000) + 1 + "'" }));
+    const endOverlay = m.phase === 'ended' ? React.createElement('div', {
+      onClick: () => this.finishMatch(),
+      style: { position: 'fixed', inset: 0, zIndex: 100, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18, cursor: 'pointer', padding: 20, animation: 'rachaFlash 0.9s ease-in-out infinite', textAlign: 'center' }
+    },
+      React.createElement('div', { style: { fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: 'clamp(56px,14vw,160px)', lineHeight: 0.95, color: '#ffffff', textTransform: 'uppercase', animation: 'rachaPulse 0.9s ease-in-out infinite' } }, 'ACABOU O TEMPO'),
+      React.createElement('div', { style: { fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 800, fontSize: 'clamp(40px,8vw,72px)', color: '#ffffff' } }, 'Time A ' + a + ' × ' + b + ' Time B'),
+      React.createElement('div', { style: { fontFamily: "'Barlow',sans-serif", fontWeight: 600, fontSize: 18, color: '#ffffff' } }, 'Toque na tela para encerrar')
+    ) : null;
+    return {
+      isSetup: m.phase === 'setup', isRunning: m.phase === 'live' || m.phase === 'ended', isLive: m.phase === 'live', isDone: m.phase === 'done',
+      linhaLabel: 'Linha ' + m.linha, ruleOpts,
+      ruleLabel: m.rule === 'tempo' ? 'Partida de 10 minutos' : 'Até um time fazer 2 gols',
+      startMatch: () => this.setMatch({ phase: 'live', startTs: Date.now(), endMs: 0, goals: [] }),
+      scoreA: a, scoreB: b,
+      clock: m.rule === 'tempo' ? this.fmt(600000 - el) : this.fmt(el),
+      clockSub: m.rule === 'tempo' ? 'restante' : 'decorrido',
+      addGoalA: () => this.setState({ goalTeam: 'A', goalScorer: '', goalAssist: '' }),
+      addGoalB: () => this.setState({ goalTeam: 'B', goalScorer: '', goalAssist: '' }),
+      remGoalA: () => this.removeGoal('A'), remGoalB: () => this.removeGoal('B'),
+      hasGoals: m.goals.length > 0, goalLog,
+      goalOpen: !!goalTeam && m.phase === 'live',
+      goalTitle: 'Gol do Time ' + (goalTeam || 'A'),
+      goalShirtBg: goalTeam === 'B' ? 'url("https://i.imgur.com/YhLya7f.png")' : 'url("https://i.imgur.com/fDP8278.jpeg")',
+      goalScorers, goalAssists,
+      goalBtnBg: goalScorer ? '#22c55e' : '#1f2925', goalBtnFg: goalScorer ? '#0b120e' : '#5f6e67',
+      closeGoal: () => this.setState({ goalTeam: null }),
+      confirmGoal: () => this.confirmGoal(),
+      endOverlay,
+      resultLabel: a === b ? 'Empate' : 'Vitória do Time ' + (a > b ? 'A' : 'B'),
+      nextLinha: () => this.setMatch({ phase: 'setup', linha: m.linha + 1, goals: [], startTs: 0, endMs: 0 }),
+      hasHist: this.state.hist.length > 0
+    };
+  }
+
+  loadPresenca() { try { const s = localStorage.getItem(Component.PKEY); if (s) return JSON.parse(s); } catch (e) {} return []; }
+  norm(s) { return (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim(); }
+  cleanName(s) {
+    return s.replace(/\([^)]*\)|\[[^\]]*\]/g, ' ').replace(/[^\p{L}\s.'-]/gu, ' ').replace(/\s+/g, ' ').replace(/^[\s.'-]+|[\s'-]+$/g, '').trim();
+  }
+  parseList(text) {
+    const out = [], seen = new Set();
+    const skipWords = ['vaga', 'livre', 'disponivel', 'reserva', 'aberto'];
+    const add = (raw, gk) => {
+      let n = this.cleanName(raw);
+      if (/goleir|\bgol\b/i.test(n)) { gk = true; n = n.replace(/goleiros?|\bgol\b/gi, ' ').replace(/\s+/g, ' ').replace(/^[\s-]+|[\s-]+$/g, ''); }
+      const k = this.norm(n);
+      if (k.length < 2 || skipWords.includes(k) || seen.has(k)) return;
+      seen.add(k); out.push({ nome: n, gk });
+    };
+    let section = 'linha';
+    (text || '').split(/\r?\n/).forEach(line0 => {
+      let line = line0.replace(/(\d)\uFE0F?\u20E3/g, '$1- ')
+        .replace(/[\p{Extended_Pictographic}\u{1F1E6}-\u{1F1FF}\uFE0F\u200D\u20E3*~_]/gu, ' ').trim();
+      if (!line) return;
+      if (/arbitr|árbitr|juiz|mesario/i.test(line)) { section = 'skip'; return; }
+      const gk = line.match(/^goleiros?\s*\d*\s*[:\-–—]\s*(.*)$/i);
+      if (gk) { if (gk[1].trim()) gk[1].split(/\s*[\/,&]\s*|\s+e\s+/).forEach(n => add(n, true)); else section = 'gk'; return; }
+      if (/^goleiros?\s*$/i.test(line)) { section = 'gk'; return; }
+      const num = line.match(/^(\d{1,2})\s*[-.)º°:–—]+\s*(.*)$/);
+      if (num) { if (section !== 'skip' && num[2].trim()) add(num[2], section === 'gk'); return; }
+      if (/\p{L}/u.test(line)) section = 'linha';
+    });
+    return out;
+  }
+  findPlayer(players, nome) { const k = this.norm(nome); return players.find(p => this.norm(p.nome) === k || (p.apelido && this.norm(p.apelido) === k)); }
+  doImport() {
+    const found = this.parseList(this.state.importText);
+    if (!found.length) return;
+    let players = [...this.state.players], novos = 0; const ids = [];
+    found.forEach((f, i) => {
+      let p = this.findPlayer(players, f.nome);
+      if (!p) { p = { id: Date.now() + i, nome: f.nome, apelido: '', posicao: f.gk ? 'goleiro' : 'linha', habilidade: 'mediano', foto: '' }; players.push(p); novos++; }
+      if (!ids.includes(p.id)) ids.push(p.id);
+    });
+    this.persist(players);
+    try { localStorage.setItem(Component.PKEY, JSON.stringify(ids)); } catch (e) {}
+    const msg = ids.length + (ids.length === 1 ? ' confirmado' : ' confirmados') + (novos ? ' · ' + novos + (novos === 1 ? ' jogador novo cadastrado' : ' jogadores novos cadastrados') : '');
+    this.setState({ players, presenca: ids, importOpen: false, importText: '', importMsg: msg });
+  }
+
+  loadPage() { try { return localStorage.getItem('racha_pagina') || 'inicio'; } catch (e) { return 'inicio'; } }
+  loadPlayers() {
+    try { const s = localStorage.getItem(Component.KEY); if (s) return JSON.parse(s); } catch (e) {}
+    return Component.SEED;
+  }
+  persist(players) { try { localStorage.setItem(Component.KEY, JSON.stringify(players)); } catch (e) {} }
+  go(page, e) { if (e) e.preventDefault(); try { localStorage.setItem('racha_pagina', page); } catch (x) {} this.setState({ page }); }
+  initials(nome) {
+    const parts = (nome || '').trim().split(/\s+/).filter(Boolean);
+    if (!parts.length) return '?';
+    return ((parts[0][0] || '') + (parts.length > 1 ? parts[parts.length - 1][0] : '')).toUpperCase();
+  }
+  setForm(patch) { this.setState(s => ({ form: { ...s.form, ...patch } })); }
+
+  onPhoto(e) {
+    const input = e.target; const file = input.files && input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const max = 600, r = Math.min(1, max / Math.max(img.width, img.height));
+        const c = document.createElement('canvas');
+        c.width = Math.round(img.width * r); c.height = Math.round(img.height * r);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        this.setForm({ foto: c.toDataURL('image/jpeg', 0.85) });
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+    input.value = '';
+  }
+
+  save() {
+    const f = this.state.form;
+    if (!f || !f.nome.trim()) return;
+    const clean = { ...f, nome: f.nome.trim(), apelido: f.apelido.trim() };
+    const players = f.id
+      ? this.state.players.map(p => p.id === f.id ? clean : p)
+      : [...this.state.players, { ...clean, id: Date.now() }];
+    this.persist(players);
+    this.setState({ players, form: null, confirmDel: false });
+  }
+  doDelete() {
+    const id = this.state.form && this.state.form.id;
+    const players = this.state.players.filter(p => p.id !== id);
+    this.persist(players);
+    this.setState({ players, form: null, confirmDel: false });
+  }
+
+  pagesVals(page, list) {
+    const ids = ['inicio', 'jogadores', 'presenca', 'times', 'partidas', 'ranking'];
+    const labels = ['Início', 'Jogadores', 'Presença', 'Times', 'Partidas', 'Ranking'];
+    const cur = ids.includes(page) ? page : 'inicio';
+    const navItems = ids.map((id, i) => {
+      const a = id === cur;
+      return { label: labels[i], go: e => this.go(id, e), bg: a ? '#163823' : 'transparent', fg: a ? '#4ade80' : '#a3b0aa', fw: a ? 600 : 500, hoverBg: a ? '#163823' : '#18201d' };
+    });
+    const conf = this.state.presenca;
+    const stMap = { conf: ['Confirmado', '#163823', '#4ade80'], nao: ['Não vai', '#2a1414', '#f08080'], pend: ['Sem resposta', '#1f2925', '#a3b0aa'] };
+    const presenca = list.map(p => { const k = conf.includes(p.id) ? 'conf' : 'pend'; const s = stMap[k]; return { ...p, initialsIfNoFoto: p.foto ? '' : p.initials, stLabel: s[0], stBg: s[1], stFg: s[2], _s: k }; })
+      .sort((a, b) => (a._s === 'conf' ? 0 : 1) - (b._s === 'conf' ? 0 : 1));
+    const preview = this.state.importOpen ? this.parseList(this.state.importText).map(f => {
+      const ex = this.findPlayer(this.state.players, f.nome);
+      return { nome: ex ? ex.nome : f.nome, tag: ex ? (f.gk ? 'gol' : '') : 'novo', tagColor: ex ? '#fbbf24' : '#4ade80', border: ex ? '#2a3a32' : '#1f6b3c' };
+    }) : [];
+    const nNew = preview.filter(c => c.tag === 'novo').length;
+    const cnt = k => presenca.filter(r => r._s === k).length;
+    const tA = list.filter((_, i) => i % 2 === 0), tB = list.filter((_, i) => i % 2 === 1);
+    const cnts = n => n + (n === 1 ? ' jogador' : ' jogadores');
+    const teams = [
+      { nome: 'Time A', shirtBg: 'url("https://i.imgur.com/fDP8278.jpeg")', alt: 'Camisa Time A', players: tA, count: cnts(tA.length) },
+      { nome: 'Time B', shirtBg: 'url("https://i.imgur.com/YhLya7f.png")', alt: 'Camisa Time B', players: tB, count: cnts(tB.length) }
+    ];
+    const mk = (score, status, live, done) => ({ score, status, bg: live ? '#12301f' : '#161d1a', border: live ? '#1f6b3c' : '#223029', stColor: live ? '#4ade80' : (done ? '#8fa39a' : '#6b7a73') });
+    const matches = this.state.hist.map(x => mk(x.a + ' × ' + x.b, 'LINHA ' + x.linha + ' · ENCERRADA', false, true));
+    const stats = [[14, 9], [11, 8], [9, 7], [2, 10], [7, 6], [5, 5], [1, 6], [6, 4]];
+    const ranking = list.map((p, i) => { const s = stats[i % stats.length]; return { nome: p.nome, gols: s[0], vit: s[1], pts: s[1] * 3 + s[0] }; })
+      .sort((a, b) => b.pts - a.pts).map((r, i) => ({ ...r, pos: i + 1, posColor: i < 3 ? '#4ade80' : '#6b7a73' }));
+    return {
+      navItems,
+      isHome: cur === 'inicio', isPlayers: cur === 'jogadores', isPresenca: cur === 'presenca', isTimes: cur === 'times', isPartidas: cur === 'partidas', isRanking: cur === 'ranking',
+      presenca, presConf: cnt('conf'), presNao: cnt('nao'), presPend: cnt('pend'),
+      teams, matches, ranking,
+      openImport: () => this.setState({ importOpen: true, importText: '' }),
+      closeImport: () => this.setState({ importOpen: false }),
+      importOpen: this.state.importOpen, importText: this.state.importText,
+      onImportText: e => this.setState({ importText: e.target.value }),
+      preview, hasPreview: preview.length > 0,
+      previewLabel: preview.length + ' reconhecidos' + (nNew ? ' · ' + nNew + (nNew === 1 ? ' novo' : ' novos') : ''),
+      importBg: preview.length ? '#22c55e' : '#1f2925', importFg: preview.length ? '#0b120e' : '#5f6e67',
+      doImport: () => this.doImport(),
+      hasImportMsg: !!this.state.importMsg, importMsg: this.state.importMsg,
+      clearImportMsg: () => this.setState({ importMsg: '' })
+    };
+  }
+
+  renderVals() {
+    const { page, players, form, confirmDel } = this.state;
+    const skillN = { ruim: 1, mediano: 2, bom: 3 };
+    const skillName = { ruim: 'Ruim', mediano: 'Mediano', bom: 'Bom' };
+    const list = players.map(p => ({
+      ...p,
+      hasFoto: !!p.foto, noFoto: !p.foto, fotoBg: p.foto ? 'url("' + p.foto + '")' : 'none',
+      initials: this.initials(p.nome),
+      apelidoLabel: p.apelido ? '“' + p.apelido + '”' : 'Sem apelido',
+      posLabel: p.posicao === 'goleiro' ? 'Goleiro' : 'Linha',
+      posColor: p.posicao === 'goleiro' ? '#fbbf24' : '#4ade80',
+      skillLabel: skillName[p.habilidade],
+      bars: [1, 2, 3].map(i => ({ bg: i <= skillN[p.habilidade] ? '#22c55e' : '#2a3a32' })),
+      open: () => this.setState({ form: { ...p }, confirmDel: false })
+    }));
+    const opt = (val, cur, label, key) => ({
+      label, bg: val === cur ? '#22c55e' : 'transparent', fg: val === cur ? '#0b120e' : '#a3b0aa',
+      pick: () => this.setForm({ [key]: val })
+    });
+    const valid = form && form.nome.trim().length > 0;
+    return {
+      ...this.pagesVals(page, list),
+      ...this.matchVals(list),
+      players: list, isEmpty: list.length === 0,
+      countLabel: list.length + (list.length === 1 ? ' cadastrado' : ' cadastrados'),
+      openNew: () => this.setState({ form: { id: null, nome: '', apelido: '', foto: '', posicao: 'linha', habilidade: 'mediano' }, confirmDel: false }),
+      modalOpen: !!form,
+      form: form || { nome: '', apelido: '', foto: '' },
+      modalTitle: form && form.id ? 'Editar jogador' : 'Novo jogador',
+      formHasFoto: !!(form && form.foto), formFotoBg: form && form.foto ? 'url("' + form.foto + '")' : 'none', formNoFoto: !(form && form.foto),
+      formInitials: this.initials(form && form.nome),
+      photoLabel: form && form.foto ? 'Trocar foto' : 'Enviar foto',
+      onPhoto: e => this.onPhoto(e),
+      removePhoto: () => this.setForm({ foto: '' }),
+      onNome: e => this.setForm({ nome: e.target.value }),
+      onApelido: e => this.setForm({ apelido: e.target.value }),
+      posOpts: form ? [opt('goleiro', form.posicao, 'Goleiro', 'posicao'), opt('linha', form.posicao, 'Linha', 'posicao')] : [],
+      skillOpts: form ? [opt('ruim', form.habilidade, 'Ruim', 'habilidade'), opt('mediano', form.habilidade, 'Mediano', 'habilidade'), opt('bom', form.habilidade, 'Bom', 'habilidade')] : [],
+      closeModal: () => this.setState({ form: null, confirmDel: false }),
+      stop: e => e.stopPropagation(),
+      save: () => this.save(),
+      saveBg: valid ? '#22c55e' : '#1f2925', saveFg: valid ? '#0b120e' : '#5f6e67',
+      showDelBtn: !!(form && form.id) && !confirmDel,
+      confirmDel,
+      askDel: () => this.setState({ confirmDel: true }),
+      cancelDel: () => this.setState({ confirmDel: false }),
+      doDelete: () => this.doDelete()
+    };
+  }
+}
+</script>
+</body>
+</html>
